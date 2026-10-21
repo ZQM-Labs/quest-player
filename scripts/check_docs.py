@@ -53,8 +53,9 @@ def check_links(repo_path):
     checked_links = set()
     
     for md_file in repo_path.rglob("*.md"):
-        # Skip .git directory
-        if ".git" in md_file.parts:
+        # Skip .git and node_modules: vendored dependency docs are not part of
+        # this repo's documentation surface and carry their own broken links.
+        if ".git" in md_file.parts or "node_modules" in md_file.parts:
             continue
         
         content = md_file.read_text(encoding="utf-8")

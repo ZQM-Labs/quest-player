@@ -70,6 +70,15 @@ git clone https://github.com/ZQM-Labs/quest-player.git
 cd quest-player
 ```
 
+Or serve the directory over HTTP with a local web server:
+
+```bash
+python3 -m http.server 8080
+# http://localhost:8080/?demo=1
+```
+
+There are no npm dependencies required to run the player; `npm install` is only needed for the Playwright release tests (see [Run](#run)).
+
 ## Run
 
 ```bash
