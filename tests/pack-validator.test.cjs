@@ -147,3 +147,29 @@ test("every service worker precache entry exists in the shipped tree", () => {
     );
   }
 });
+
+// Regression for the 2026-10-24 malformed-pack fail-open (audit P0 #6):
+// a live kit whose pack fails validatePack() used to alert "using the
+// built-in game" and then keep playing the embedded demo pack under the
+// live kit id, so syncProgress() posted demo-content solves to that kit's
+// leaderboard. The start handler must now abort BEFORE startingKit is set,
+// so no session starts and nothing syncs. The unloadable-pack path
+// (fetchKitBundle returns null) is unchanged and still aborts via the
+// bundle-null check above this branch.
+test("malformed live-kit pack aborts the session instead of falling back to demo content", () => {
+  const app = fs.readFileSync(path.join(root, "app.js"), "utf8").replace(/\r\n/g, "\n");
+  assert.ok(!app.includes("using the built-in game"),
+    "no fallback-to-demo copy may remain for a rejected live-kit pack");
+  const idx = app.indexOf("pack_validation_failed");
+  assert.ok(idx >= 0, "pack_validation_failed alert should exist");
+  const segment = app.slice(idx, idx + 700);
+  assert.ok(segment.includes("return;"),
+    "the validation-failure branch must return (abort) before startingKit is set");
+  const after = app.slice(idx);
+  const retAt = after.indexOf("return;");
+  const kitAt = after.indexOf("startingKit = result.kit");
+  assert.ok(retAt >= 0 && kitAt > retAt,
+    "abort return must precede the live-kit assignment");
+  assert.ok(app.includes("if (!bundle.pack)"),
+    "a live kit with no pack at all must also abort, not play demo content under its id");
+});

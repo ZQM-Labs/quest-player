@@ -64,7 +64,7 @@
   "gps_unavailable": "GPS no disponible — usa el código del cartel en su lugar.",
   "access_code_invalid": "Ese código de acceso no es válido — pregunta a tu organizador.",
   "load_failed": "No se pudo cargar el juego — verifica tu conexión.",
-  "pack_validation_failed": "El contenido de este kit falló la validación — usando el juego integrado. Dile a tu organizador.",
+  "pack_validation_failed": "El contenido de este kit falló la validación — la búsqueda no puede comenzar con este kit. No se guardó ningún progreso en su tabla de clasificación. Dile a tu organizador.",
   "lantern_lit": "¡Linterna encendida!",
   "one_down": "¡Una menos! ¿Ves cómo brilla? Eso es mi felicidad escapando.",
   "got_it": "¡Lo tengo! Oakie dice que estás oficialmente aprobado por los árboles.",

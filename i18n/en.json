@@ -64,7 +64,7 @@
   "gps_unavailable": "GPS unavailable — use the sign code instead.",
   "access_code_invalid": "That access code didn't check out — ask your organizer.",
   "load_failed": "Could not load the game — check your connection.",
-  "pack_validation_failed": "This kit's content failed validation — using the built-in game. Tell your organizer.",
+  "pack_validation_failed": "This kit's content failed validation — the hunt cannot start with this kit. No progress has been saved to its leaderboard. Tell your organizer.",
   "lantern_lit": "Lantern lit!",
   "one_down": "One down! See how it glows? That's my happy leaking out.",
   "got_it": "Got it! Oakie says you're officially tree-approved.",
