@@ -20,8 +20,8 @@ const GlobalStory = {
       description: 'Spooky autumn hunt',
       season: 'autumn',
       theme: 'light vs darkness',
-      intro: "On the night when the veil between worlds grows thin, Wisp the will-o'-the-wisp lost her six glow lanterns. Without them she cannot find her way home — and the shadows grow longer. You are her Lantern Keepers now. Bring the light back.",
-      outro: "The lanterns are lit, the shadows retreat, and Wisp dances in the light she helped reclaim. The night belongs to those who carry light — and tonight the parade burns bright behind her, all the way home.",
+      intro: "On the night when the veil between worlds grows thin, Wisp the will-o'-the-wisp lost her six glow lanterns, and the road home went dark with them. Without them she cannot find her way home — and the shadows grow longer with every step not yet taken. You are her Lantern Keepers now: six stops, six lanterns, one road home. Bring the light back.",
+      outro: "Six lanterns lit, six shadows sent home, and Wisp dances at the head of the parade she helped reclaim — the road home burning bright behind her, all the way home. The night belongs to those who carry light, Keepers, and tonight you carried it.",
       cultural_hooks: ['pumpkin', 'ghost', 'spooky', 'autumn', 'costume']
     },
     lantern_festival: {
@@ -249,11 +249,11 @@ const GlobalStory = {
   // Transition narratives between stops
   transitions: {
     halloween: [
-      "Wisp's light is a candle cupped in small hands. The night is big, and she is small — for now.",
+      "Wisp's light is a candle cupped in small hands. The night is big, and she is small — for now. Keepers, the road home starts at the pumpkin.",
       "One lantern lit. Wisp stands a little taller, and the dark gives back a step.",
       "Two lights. Somewhere behind her eyes, a road she used to know is coming back to her.",
       "Three — half the parade. Wisp is humming a tune she could not have named an hour ago.",
-      "Four lanterns, and the tune has words now. She almost remembers the way home.",
+      "Four lanterns, and the tune has words now — the parade tune, the one she danced through the spider's crossing. She almost remembers the way home.",
       "Five. One more light, and the road home exists again. Almost there, Keepers."
     ],
     lantern_festival: [
