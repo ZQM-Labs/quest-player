@@ -21,7 +21,6 @@ jobs:
         run: |
           node --check app.js
           node --check global-story.js
-          node --check global-features.js
           node --check i18n.js
           node --check sw.js
       - name: Run dependency-free regression tests

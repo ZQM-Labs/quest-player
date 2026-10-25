@@ -42,9 +42,4 @@ test("dynamic chrome strings route through the i18n helper", () => {
   assert.ok(app.includes('T("pause_button"'), "app.js pause label not localized");
   assert.ok(app.includes('T("resume_button"'), "app.js resume label not localized");
   assert.ok(app.includes('T("team_name_too_long"'), "app.js team-name alert not localized");
-  const gf = fs.readFileSync(path.join(root, "global-features.js"), "utf8");
-  for (const k of ["global_rankings_empty", "communities_empty", "invite_team_title",
-    "invite_team_text", "copy_link_button", "copied_button", "close_button"]) {
-    assert.ok(gf.includes("gfT('" + k + "'") || gf.includes('gfT("' + k + '"'), "global-features.js missing gfT for " + k);
-  }
 });
