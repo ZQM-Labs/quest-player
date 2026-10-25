@@ -19,10 +19,10 @@ const DEMO_PACK = {
       "lng": -80.927,
       "code": "LANTERN-1",
       "story": {
-        "cozy": "Wisp twirls sadly, her light flickering like a dying candle. \"My first lantern rolled away right at the start!\" she cries, her voice barely a whisper. \"Without it, I can't remember which way is home. Please — you have to help me find it.\"",
+        "cozy": "Wisp spins in a wobbly circle, her light thin as a candle in the wind. “My first lantern rolled away — right here, right at the start!” Her voice is small, but her hope is not gone yet. “You found me, Keepers. Help me light this one, and maybe the road home will start to come back.”",
         "spooky": "A carved pumpkin grins where no pumpkin should be. Something glows inside it — something alive, something watching. The grin widens as you approach, and you realize: it's not a pumpkin at all. It's a lantern, and it's been waiting for you.",
-        "afterdark": "The old-timers say a light once wandered this road, looking for the turning it missed in 1768. They say it still wanders, still searching, still hoping. Tonight, that light is Wisp — and tonight, you can help her find her way home.",
-        "overdrive": "Dr. Z's voice crackles through the static: \"FULL MADNESS engaged! My sensors detect faster teams ahead of you. That pumpkin isn't smiling — it's SMIRKING. Wipe that smirk off its face and reclaim what's Wisp's!\""
+        "afterdark": "The old-timers say a light once wandered this road, looking for the turning it missed in 1768. They say it still wanders, still searching, still hoping. Tonight, that light is Wisp — and tonight, Keepers, you can help her find her way home.",
+        "overdrive": "Dr. Z's voice crackles through the static: “FULL MADNESS engaged! Lantern one of six, and my sensors detect faster teams ahead of you. That pumpkin isn't smiling — it's SMIRKING. Wipe that smirk off its face and reclaim what's Wisp's!”"
       },
       "puzzle": {
         "cozy": {
@@ -83,10 +83,10 @@ const DEMO_PACK = {
       "lng": -80.9264,
       "code": "LANTERN-2",
       "story": {
-        "cozy": "The big oak is Wisp's best friend. He hid a lantern in his branches centuries ago, and he's been waiting for someone worthy to claim it. \"Oakie only hides things for friends,\" Wisp whispers. \"Are we friends?\"",
-        "spooky": "The oak's branches are bare, but something in the canopy breathes in and out, in and out — like the tree is dreaming. The leaves rustle though there's no wind. A voice whispers from the branches: \"Whooo dares to enter my domain?\" — and underneath it, fainter, something else whispers the words back, a half-second late.",
-        "afterdark": "They say this oak was a hanging tree in the 1800s. On still nights the leaves whisper names — the names of those who never left. Listen carefully. Is one of them yours? Or is it Wisp's, calling out for help?",
-        "overdrive": "Dr. Z crackles in: \"My bark-cams caught Oakie NAPPING through your arrival. Two hundred years old and asleep on duty! Wake him the loud way, Keepers — fast feet, faster answers. That lantern is not going to reclaim itself.\""
+        "cozy": "Oakie has stood here longer than anyone can remember, and somewhere high in his branches a lantern waits. Wisp's light is steadier now — one lantern lit will do that. “Oakie kept it safe all this time,” she whispers, looking up. “Let's show him what Keepers can do.”",
+        "spooky": "Behind you, one lantern burns. Ahead, the oak's branches are bare, but something in the canopy breathes in and out, in and out — like the tree is dreaming. The leaves rustle though there's no wind. A voice whispers from the branches: “Whooo dares to enter my domain?” — and underneath it, fainter, something else whispers the words back, a half-second late.",
+        "afterdark": "One lantern burns behind you as you step under the oak. They say this oak was a hanging tree in the 1800s. On still nights the leaves whisper names — the names of those who never left. Listen carefully. Is one of them yours? Or is it Wisp's, calling out for help?",
+        "overdrive": "Dr. Z crackles in: “Lantern two of six! My bark-cams caught Oakie NAPPING through your arrival. Two hundred years old and asleep on duty! Wake him the loud way, Keepers — fast feet, faster answers. That lantern is not going to reclaim itself.”"
       },
       "puzzle": {
         "cozy": {
@@ -147,10 +147,10 @@ const DEMO_PACK = {
       "lng": -80.9258,
       "code": "LANTERN-3",
       "story": {
-        "cozy": "Don't worry — these tombstones are made of foam, and every ghost here just wants to play tag. The giggling isn't coming from any of them. It's coming from underneath. \"Tag, you're it!\" Wisp giggles. \"Kidding — unless…? No, kidding. Probably.\" Her giggle sounds stronger than it did at the pumpkin patch. Two lights will do that.",
-        "spooky": "The foam tombstones lean like bad teeth, and the giggling isn't coming from any of them. It's coming from underneath. The ground trembles slightly, and you realize: the graveyard is alive, and it's laughing at you.",
-        "afterdark": "Pretend stones, real ground. The town buried its 1918 flu dead in a field like this one — and on Halloween the veil is thin enough to hear them laugh. They're not mocking you. They're inviting you to play.",
-        "overdrive": "The ghosts keep score, and right now you're losing to a team of TODDLERS. Tag them back. TAG. THEM. BACK. The graveyard is watching, and it's not impressed. Show them what real Keepers can do."
+        "cozy": "The tombstones are foam, the ghosts are pretend, and the giggling is real — bubbling up from under the grass like a joke that won't stay buried. Wisp's giggle joins it, louder than it was at the pumpkin patch. Two lights will do that. Somewhere under the giggles, a lantern waits to be found.",
+        "spooky": "Two lanterns burn behind you. The foam tombstones lean like bad teeth, and the giggling isn't coming from any of them. It's coming from underneath. The ground trembles slightly, and you realize: the graveyard is alive, and it's laughing at you.",
+        "afterdark": "Two lanterns lit, and the ground remembers more than the stones do. Pretend stones, real ground. The town buried its 1918 flu dead in a field like this one — and on Halloween the veil is thin enough to hear them laugh. They're not mocking you. They're inviting you to play.",
+        "overdrive": "Dr. Z crackles in: “My scoreboard says you're trailing a team of TODDLERS, Keepers! The ghosts are keeping score and they are NOT impressed. Tag them back — TAG. THEM. BACK. — and take lantern three before the toddlers do.”"
       },
       "puzzle": {
         "cozy": {
@@ -211,10 +211,10 @@ const DEMO_PACK = {
       "lng": -80.9252,
       "code": "LANTERN-4",
       "story": {
-        "cozy": "Mrs. Spider — she's friendly, and made of pipe cleaners — has a lantern tangled in her web! \"She says it with all eight legs. It's a lot of hi.\" Wisp translates. Something in the web's pattern tugs at her. \"I know this crossing,\" she says slowly. \"I danced the parade through here — before.\" \"She only lends it to good listeners. Are you a good listener?\"",
-        "spooky": "The web stretches between the gazebo posts like a trap, and the dew on it isn't dew — it's too thick, and it trembles when you step close. Mrs. Spider watches you with all eight eyes, and the web hums against the dark, counting every step you take.",
-        "afterdark": "Orb weavers rebuild every night. This one has rebuilt in this exact spot for eleven years. She remembers every face that's ever been caught. She's waiting to see if yours is worth remembering.",
-        "overdrive": "Mrs. Spider has rebuilt eleven webs tonight AND finished a crossword. Your excuse is WHAT, exactly? Untangle that lantern. Clock's ticking. She's losing patience, and spiders are not known for their patience."
+        "cozy": "Mrs. Spider — she's friendly, and made of pipe cleaners — has a lantern tangled in her web, right where the parade path crosses. Something in the web's pattern tugs at Wisp. “I know this crossing,” she says slowly. “I danced the parade through here — before.” Three lights burn behind her, and the way home is starting to feel familiar. “She only lends it to good listeners. Are you listening?”",
+        "spooky": "Three lanterns burn behind you. The web stretches between the gazebo posts like a trap, and the dew on it isn't dew — it's too thick, and it trembles when you step close. Mrs. Spider watches you with all eight eyes, and the web hums against the dark, counting every step you take.",
+        "afterdark": "Three lanterns lit, and this web has been rebuilt in this exact spot for eleven years. Orb weavers rebuild every night. This one remembers every face that's ever been caught. She's waiting to see if yours is worth remembering.",
+        "overdrive": "Dr. Z crackles in: “Mrs. Spider has rebuilt eleven webs tonight AND finished a crossword, Keepers! Your excuse is WHAT, exactly? Untangle lantern four before she loses patience — and spiders are not known for their patience. Clock's ticking!”"
       },
       "puzzle": {
         "cozy": {
@@ -275,10 +275,10 @@ const DEMO_PACK = {
       "lng": -80.9246,
       "code": "LANTERN-5",
       "story": {
-        "cozy": "High in the tree, Professor Hoot guards a lantern. He has one question for every visitor, and he always knows when the answer is a guess. \"Professor Hoot is very serious,\" Wisp whispers. Four lights behind her, she sits up straighter in the dark — one more after this one, and then the parade. Then home. \"Do your serious face. …Not that serious. Dial it back.\"",
-        "spooky": "The owl doesn't blink. Owls can't — but this one isn't trying to. It watches you solve, and you can feel it grading you. The silence is heavy, expectant. One wrong answer and you'll fail the test.",
-        "afterdark": "Barred owls ask 'who cooks for you.' The old stories say if you answer wrong, you follow the sound into the dark and don't come back. Answer carefully. The owl is listening. Tonight it has asked Wisp herself — and for the first time all night, she almost knows the answer.",
-        "overdrive": "Professor Hoot graded your last answer a C+. A C! In MY hunt! Listen harder, answer faster — make an owl proud. He's waiting, and owls are not known for their patience. Well, they are. But he's not."
+        "cozy": "High in the tree, Professor Hoot guards a lantern. He has one question for every visitor, and he always knows when the answer is a guess. Four lights burn behind Wisp now, and she sits up straighter in the dark. One more after this one, and then the parade. Then home. Answer true, Keepers — Hoot can tell.",
+        "spooky": "Four lanterns burn behind you. The owl doesn't blink. Owls can't — but this one isn't trying to. It watches you solve, and you can feel it grading you. The silence is heavy, expectant. One wrong answer and you'll fail the test.",
+        "afterdark": "Four lanterns lit, and the owl is listening closer than ever. Barred owls ask 'who cooks for you.' The old stories say if you answer wrong, you follow the sound into the dark and don't come back. Answer carefully. Tonight it has asked Wisp herself — and for the first time all night, she almost knows the answer.",
+        "overdrive": "Dr. Z crackles in: “Lantern five of six, Keepers! Professor Hoot graded your last answer a C+. A C! In MY hunt! Listen harder, answer faster — make an owl proud. He's waiting, and owls are not known for their patience. Well, they are. But he's not.”"
       },
       "puzzle": {
         "cozy": {
@@ -339,10 +339,10 @@ const DEMO_PACK = {
       "lng": -80.924,
       "code": "LANTERN-6",
       "story": {
-        "cozy": "The last lantern! Light it and the whole parade glows. Wisp's hands are all shaky. \"Do I have hands? I'm shaky anyway!\" she laughs, her light flickering with joy. Say the old words with her, Keepers, the way every parade begins: \"Light the way, Wisp!\" — \"This is it — the last one!\"",
-        "spooky": "The empty parade ground waits. Six lanterns, six shadows — but there are seven shadows moving on the grass, and one of them is waving at you. Wisp's light flickers nervously. \"That's... that's not one of mine.\"",
-        "afterdark": "Every lantern you've lit is still burning behind you, a dotted line of fire through the dark. One more, and the road home exists. One more, and Wisp can find her way. One more, and the night is yours.",
-        "overdrive": "FINAL STRETCH. Wisp ran the numbers and they are NOT in your favor. Light that last lantern like you mean it — FULL! MADNESS! The parade ground is watching, the shadows are waiting, and Dr. Z is timing you. GO!"
+        "cozy": "The last lantern! Five lights already burn behind you, and the whole parade is waiting to glow. Say the old words with Wisp, Keepers, the way every parade begins: “Light the way, Wisp!” Then light it — and watch the road home appear.",
+        "spooky": "Five lights behind you, one to go. The empty parade ground waits. Six lanterns, six shadows — but there are seven shadows moving on the grass, and one of them is waving at you. Wisp's light flickers nervously. “That's... that's not one of mine.”",
+        "afterdark": "Every lantern you've lit is still burning behind you, a dotted line of fire through the dark. One more, and the road home exists. One more, and Wisp can find her way. One more, Keepers, and the night is yours.",
+        "overdrive": "Dr. Z crackles in: “FINAL STRETCH — lantern six of six! Wisp ran the numbers and they are NOT in your favor. Light that last lantern like you mean it — FULL! MADNESS! The parade ground is watching, the shadows are waiting, and I'm timing you. GO!”"
       },
       "puzzle": {
         "cozy": {
