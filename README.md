@@ -43,9 +43,7 @@ authored as content packs in `lantern-content`; this player is the stage
 they are performed on — offline-first, with locale files for seven
 languages, on whatever phone a Lantern Keeper has in their pocket.
 
-The player web app (PWA) for ZQM Labs location games. Vanilla HTML/CSS/JS —
-no build step, no framework. Leaflet is the only library (vendor it locally
-before launch; CDN is fine for dev).
+The **ZQM Labs quest-player Progressive Web App (PWA)** runs location-based scavenger hunts in a mobile browser using vanilla HTML, CSS, and JavaScript. It presents versioned quest packs, checkpoint puzzles, hint ladders, and story/scare-level variants, with offline-first behavior as a design goal. The runtime must be validated on supported devices and clean hosts; repository docs and static checks alone do not prove every offline or GPS/QR flow works in the field.
 
 ## Repository role and status
 
