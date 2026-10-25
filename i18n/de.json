@@ -64,7 +64,7 @@
   "gps_unavailable": "GPS nicht verfügbar — verwenden Sie stattdessen den Schildcode.",
   "access_code_invalid": "Dieser Zugangscode ist ungültig — fragen Sie Ihren Organisator.",
   "load_failed": "Spiel konnte nicht geladen werden — überprüfen Sie Ihre Verbindung.",
-  "pack_validation_failed": "Der Inhalt dieses Kits hat die Validierung nicht bestanden — Verwendung des eingebauten Spiels. Informieren Sie Ihren Organisator.",
+  "pack_validation_failed": "Der Inhalt dieses Kits hat die Validierung nicht bestanden — die Jagd kann mit diesem Kit nicht starten. Es wurde kein Fortschritt in seiner Bestenliste gespeichert. Informieren Sie Ihren Organisator.",
   "lantern_lit": "Laterne angezündet!",
   "one_down": "Eine weniger! Sehen Sie, wie sie glüht? Das ist mein Glück, das ausläuft.",
   "got_it": "Geschafft! Oakie sagt, Sie sind offiziell baumzugelassen.",

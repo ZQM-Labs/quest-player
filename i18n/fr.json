@@ -64,7 +64,7 @@
   "gps_unavailable": "GPS indisponible — utilisez le code du panneau à la place.",
   "access_code_invalid": "Ce code d'accès n'est pas valide — demandez à votre organisateur.",
   "load_failed": "Impossible de charger le jeu — vérifiez votre connexion.",
-  "pack_validation_failed": "Le contenu de ce kit a échoué la validation — utilisation du jeu intégré. Informez votre organisateur.",
+  "pack_validation_failed": "Le contenu de ce kit a échoué la validation — la chasse ne peut pas commencer avec ce kit. Aucun progrès n'a été enregistré dans son classement. Informez votre organisateur.",
   "lantern_lit": "Lanterne allumée !",
   "one_down": "Une de moins ! Voyez comme elle brille ? C'est mon bonheur qui s'échappe.",
   "got_it": "Je l'ai ! Oakie dit que vous êtes officiellement approuvé par les arbres.",

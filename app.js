@@ -444,7 +444,8 @@ function T(key, fallback) {
 /* ---------- pack validation (mirrors ZQM-Labs/quest-authoring SPEC.md) ----------
    A remote pack replaces DEMO_PACK wholesale. Without this gate a malformed
    pack (wrong stop count, missing hints, duplicate answers) crashes openMap()
-   or the hint ladder mid-hunt. Reject and fall back to the embedded pack. */
+   or the hint ladder mid-hunt. The caller rejects it by aborting the live-kit
+   session; it must never fall back to the embedded pack under a live kit id. */
 function validatePack(p) {
   if (!p || !Array.isArray(p.stops) || p.stops.length !== 6) {
     const got = !p ? "nothing" : (Array.isArray(p.stops) ? p.stops.length : typeof p.stops);
@@ -952,16 +953,22 @@ $("btn-start").addEventListener("click", async () => {
       startBtn.textContent = T("start_button", "Start the hunt");
     }
     if (!bundle) { alert(T("load_failed", "Could not load the game — check your connection.")); return; }
-    if (bundle.pack) {
+    // A live kit must start on its own validated pack. A malformed pack (or
+    // a kit with no pack at all) aborts the session here — BEFORE startingKit
+    // is set — so the embedded demo pack can never play under a live kit id
+    // and syncProgress() can never post demo-content solves to that kit's
+    // leaderboard. The fetch-failure path above (bundle === null) is unchanged.
+    if (!bundle.pack) { alert(T("load_failed", "Could not load the game — check your connection.")); return; }
+    {
       // Gate the remote pack: a malformed one would crash openMap()/hints mid-hunt.
       const errs = validatePack(bundle.pack);
       if (errs.length) {
         console.error("Rejected content pack:", errs);
-        alert(T("pack_validation_failed", "This kit's content failed validation — using the built-in game. Tell your organizer."));
-      } else {
-        sourcePack = bundle.pack;
-        pack = (typeof I18n !== "undefined") ? I18n.translateGameContent(sourcePack) : sourcePack;
+        alert(T("pack_validation_failed", "This kit's content failed validation — the hunt cannot start with this kit. No progress has been saved to its leaderboard. Tell your organizer."));
+        return;
       }
+      sourcePack = bundle.pack;
+      pack = (typeof I18n !== "undefined") ? I18n.translateGameContent(sourcePack) : sourcePack;
     }
     // Update scare level from kit if available
     if (result.scare) {

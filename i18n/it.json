@@ -64,7 +64,7 @@
   "gps_unavailable": "GPS non disponibile — usa invece il codice del cartello.",
   "access_code_invalid": "Quel codice di accesso non è valido — chiedi al tuo organizzatore.",
   "load_failed": "Impossibile caricare il gioco — controlla la connessione.",
-  "pack_validation_failed": "Il contenuto di questo kit non ha superato la validazione — viene usato il gioco integrato. Avvisa il tuo organizzatore.",
+  "pack_validation_failed": "Il contenuto di questo kit non ha superato la validazione — la caccia non può iniziare con questo kit. Nessun progresso è stato salvato nella sua classifica. Avvisa il tuo organizzatore.",
   "lantern_lit": "Lanterna accesa!",
   "one_down": "Una di meno! Vedi come brilla? È la mia felicità che trapela.",
   "got_it": "Fatto! Oakie dice che sei ufficialmente approvato dagli alberi.",
