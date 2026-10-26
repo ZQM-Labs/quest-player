@@ -76,3 +76,13 @@ test("embedded pack: final Ranger-assist hint agrees with the puzzle key", () =>
     }
   }
 });
+
+test("demo cozy puzzles use the shipped on-screen art as their answer basis", () => {
+  assert.match(pack.stops[0].puzzle.cozy.q, /demo pumpkin picture/i);
+  assert.equal(pack.stops[0].puzzle.cozy.a, "1");
+  assert.match(pack.stops[0].hints.cozy[2], /exactly 1 pumpkin/i);
+
+  assert.match(pack.stops[1].puzzle.cozy.q, /demo oak picture/i);
+  assert.equal(pack.stops[1].puzzle.cozy.a, "0");
+  assert.match(pack.stops[1].hints.cozy[2], /shows 0 swings or benches/i);
+});
