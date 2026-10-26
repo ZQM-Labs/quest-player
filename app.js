@@ -100,8 +100,8 @@ const DEMO_PACK = {
           "type": "text"
         },
         "afterdark": {
-          "q": "The word 'whispering' hides a number. Count its letters, then subtract the benches (2).",
-          "a": "8",
+          "q": "The word 'whispering' hides a number. Count its letters, then subtract the one lantern already lit behind you.",
+          "a": "9",
           "type": "number"
         },
         "overdrive": {
@@ -128,7 +128,7 @@ const DEMO_PACK = {
         "afterdark": [
           "Face the tree like it is facing you.",
           "Only count the ones looking at the oak.",
-          "Ranger assist: 'whispering' has 10 letters — 10 − 2 benches = 8."
+          "Ranger assist: 'whispering' has 10 letters; subtract the 1 lantern already lit = 9."
         ],
         "overdrive": [
           "Face the tree like it is facing you.",
