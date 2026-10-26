@@ -100,8 +100,8 @@ const DEMO_PACK = {
           "type": "text"
         },
         "afterdark": {
-          "q": "The word 'whispering' hides a number. Count its letters, then subtract the benches (2).",
-          "a": "8",
+          "q": "The word 'whispering' hides a number. Count its letters, then subtract the one lantern already lit behind you.",
+          "a": "9",
           "type": "number"
         },
         "overdrive": {
@@ -128,7 +128,7 @@ const DEMO_PACK = {
         "afterdark": [
           "Face the tree like it is facing you.",
           "Only count the ones looking at the oak.",
-          "Ranger assist: 'whispering' has 10 letters — 10 − 2 benches = 8."
+          "Ranger assist: 'whispering' has 10 letters; subtract the 1 lantern already lit = 9."
         ],
         "overdrive": [
           "Face the tree like it is facing you.",
@@ -169,8 +169,8 @@ const DEMO_PACK = {
           "type": "number"
         },
         "overdrive": {
-          "q": "The graveyard has 5 tombstones. Each tombstone has 4 letters. Add the letters to the number of stones.",
-          "a": "9",
+          "q": "The graveyard has 5 tombstones. Each tombstone has 4 letters. Add the total number of letters to the number of stones.",
+          "a": "25",
           "type": "number"
         }
       },
@@ -197,7 +197,7 @@ const DEMO_PACK = {
         "overdrive": [
           "Read the stones — one of them is joking.",
           "It rhymes with the patch from Stop 1.",
-          "Ranger assist: 4 letters per stone + 5 stones = 9."
+          "Ranger assist: 4 letters × 5 stones = 20 letters; 20 + 5 stones = 25."
         ]
       },
       "art": "stop-3-graveyard.webp",
@@ -297,8 +297,8 @@ const DEMO_PACK = {
           "type": "number"
         },
         "overdrive": {
-          "q": "Professor Hoot hoots 10 times. Each hoot has 2 syllables. Add the syllables to the number of hoots.",
-          "a": "12",
+          "q": "Professor Hoot hoots 10 times. Each hoot has 2 syllables. Add the total syllables to the number of hoots.",
+          "a": "30",
           "type": "number"
         }
       },
@@ -325,7 +325,7 @@ const DEMO_PACK = {
         "overdrive": [
           "It is the sound this whole stop is named after.",
           "Twilight is this bird's favorite time.",
-          "Ranger assist: 2 syllables per hoot + 10 hoots = 12."
+          "Ranger assist: 10 hoots × 2 syllables = 20 syllables; 20 + 10 hoots = 30."
         ]
       },
       "art": "stop-5-owl.webp",

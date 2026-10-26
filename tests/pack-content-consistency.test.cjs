@@ -99,3 +99,15 @@ test("embedded player pack and standalone demo pack keep puzzle content in sync"
     }
   }
 });
+
+test("demo overdrive arithmetic answers match the stated operations", () => {
+  // 5 tombstones × 4 letters = 20 letters; add 5 tombstones => 25.
+  assert.match(pack.stops[2].puzzle.overdrive.q, /5 tombstones/i);
+  assert.match(pack.stops[2].puzzle.overdrive.q, /4 letters/i);
+  assert.equal(pack.stops[2].puzzle.overdrive.a, "25");
+
+  // 10 hoots × 2 syllables = 20 syllables; add 10 hoots => 30.
+  assert.match(pack.stops[4].puzzle.overdrive.q, /10 times/i);
+  assert.match(pack.stops[4].puzzle.overdrive.q, /2 syllables/i);
+  assert.equal(pack.stops[4].puzzle.overdrive.a, "30");
+});
