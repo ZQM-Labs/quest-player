@@ -73,8 +73,8 @@
           "type": "text"
         },
         "afterdark": {
-          "q": "The word 'whispering' hides a number. Count its letters, then subtract the benches (2).",
-          "a": "8",
+          "q": "The word 'whispering' hides a number. Count its letters, then subtract the one lantern already lit behind you.",
+          "a": "9",
           "type": "number"
         },
         "overdrive": {
