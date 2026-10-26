@@ -26,8 +26,8 @@ const DEMO_PACK = {
       },
       "puzzle": {
         "cozy": {
-          "q": "Count the pumpkins in the patch picture your organizer showed you. How many are smiling?",
-          "a": "4",
+          "q": "Look at the demo pumpkin picture. How many pumpkins have a smiling carved face?",
+          "a": "1",
           "type": "number"
         },
         "spooky": {
@@ -54,7 +54,7 @@ const DEMO_PACK = {
         "cozy": [
           "Look low — lanterns love the ground.",
           "Count slowly, out loud, as a team.",
-          "Ranger assist: the smiling pumpkins are 4."
+          "Ranger assist: exactly 1 pumpkin has a smiling carved face."
         ],
         "spooky": [
           "Look low — lanterns love the ground.",
@@ -90,8 +90,8 @@ const DEMO_PACK = {
       },
       "puzzle": {
         "cozy": {
-          "q": "Find the oak. How many wooden swings or benches face it?",
-          "a": "2",
+          "q": "Look at the demo oak picture. How many swings or benches are shown?",
+          "a": "0",
           "type": "number"
         },
         "spooky": {
@@ -118,7 +118,7 @@ const DEMO_PACK = {
         "cozy": [
           "Face the tree like it is facing you.",
           "Only count the ones looking at the oak.",
-          "Ranger assist: the answer is 2."
+          "Ranger assist: the demo picture shows 0 swings or benches."
         ],
         "spooky": [
           "Face the tree like it is facing you.",
