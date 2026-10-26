@@ -76,3 +76,26 @@ test("embedded pack: final Ranger-assist hint agrees with the puzzle key", () =>
     }
   }
 });
+
+test("demo cozy puzzles use the shipped on-screen art as their answer basis", () => {
+  assert.match(pack.stops[0].puzzle.cozy.q, /demo pumpkin picture/i);
+  assert.equal(pack.stops[0].puzzle.cozy.a, "1");
+  assert.match(pack.stops[0].hints.cozy[2], /exactly 1 pumpkin/i);
+
+  assert.match(pack.stops[1].puzzle.cozy.q, /demo oak picture/i);
+  assert.equal(pack.stops[1].puzzle.cozy.a, "0");
+  assert.match(pack.stops[1].hints.cozy[2], /shows 0 swings or benches/i);
+});
+
+test("embedded player pack and standalone demo pack keep puzzle content in sync", () => {
+  const standalone = JSON.parse(fs.readFileSync(path.join(root, "wisp-demo.json"), "utf8"));
+  assert.equal(standalone.stops.length, pack.stops.length, "both demo packs should have the same stop count");
+  for (const [i, stop] of pack.stops.entries()) {
+    const other = standalone.stops[i];
+    assert.equal(other.id, stop.id, `stop ${i + 1}: IDs should align`);
+    for (const tier of TIERS) {
+      assert.deepEqual(other.puzzle[tier], stop.puzzle[tier],
+        `stop ${i + 1} ${tier}: standalone and embedded puzzle content should match`);
+    }
+  }
+});
