@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - id: detect
         run: |
-          if [ -f pyproject.toml ] || [ -f pytest.ini ] || [ -f requirements.txt ] || [ -d tests ]; then
+          if [ -f pyproject.toml ] || [ -f pytest.ini ] || { [ -d tests ] && find tests -type f \( -name "test_*.py" -o -name "*_test.py" \) -print -quit | grep -q .; }; then
             echo "python=true" >> "$GITHUB_OUTPUT"
           else
             echo "python=false" >> "$GITHUB_OUTPUT"
@@ -69,7 +69,8 @@ jobs:
           if find . -path './.git' -prune -o -type f \( -name 'test_*.py' -o -name '*_test.py' \) -print -quit | grep -q .; then
             python -m pytest -q
           else
-            echo "No pytest-discoverable test files; dependency installation completed."
+            echo "::error::Python validation was selected but no pytest-discoverable test files were found." >&2
+            exit 1
           fi
 
   node:
@@ -88,7 +89,8 @@ jobs:
           if node -e "process.exit(require('./package.json').scripts?.test ? 0 : 1)"; then
             npm test
           else
-            echo "No npm test script configured; dependency installation completed."
+            echo "::error::package.json has no test script; refusing a false-green CI run." >&2
+            exit 1
           fi
       - run: npx playwright install --with-deps chromium
 
