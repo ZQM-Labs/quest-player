@@ -1,5 +1,5 @@
 {
-  "name": "lantern-player",
+  "name": "quest-player",
   "version": "1.0.0",
   "description": "Wisp's Lost Lanterns player \u2014 offline-first PWA with GPS and QR unlocks",
   "private": true,

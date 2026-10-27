@@ -37,6 +37,6 @@ name at the pinned commit — a mismatch is treated as a deploy incident.
 - Do not edit the vendored player copy inside `ZQM-Computing/zqm-labs`
   (`zqmlabs-site/static/games/…`) expecting production to change — it is
   inert legacy that the composite build overwrites with the pinned player.
-- Do not confuse this repo with `ZQM-Labs/lantern-player`: that repo powers
+- Do not confuse this repo with the former `ZQM-Labs/lantern-player` name (now quest-player): that repo powers
   the separate standalone surface `zqmlabs-play.pages.dev`. This repo is the
   source for the player embedded on zqmlabs.com.
