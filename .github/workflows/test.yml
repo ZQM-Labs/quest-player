@@ -4,21 +4,25 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+
 permissions:
   contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: '20'
-      - run: if [ -f "package.json" ]; then npm ci; fi
-      - run: npx playwright install --with-deps chromium
-      - run: |
-          if [ -f "package.json" ]; then
-            npm test
-          else
-            echo "No test suite found — placeholder workflow active"
-          fi
+          node-version: "24"
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Install Chromium browser
+        timeout-minutes: 10
+        run: npx playwright install chromium
+      - name: Run test suite
+        timeout-minutes: 15
+        run: npm test
