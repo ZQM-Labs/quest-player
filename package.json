@@ -4,7 +4,7 @@
   "description": "Wisp's Lost Lanterns player \u2014 offline-first PWA with GPS and QR unlocks",
   "private": true,
   "scripts": {
-    "test": "node --test tests/global-story.test.cjs tests/pack-validator.test.cjs tests/normalize-answer.test.cjs tests/pack-content-consistency.test.cjs tests/i18n-coverage.test.cjs tests/release-e2e.test.cjs",
+    "test": "node --test tests/global-story.test.cjs tests/pack-validator.test.cjs tests/normalize-answer.test.cjs tests/pack-content-consistency.test.cjs tests/pack-drift.test.cjs tests/i18n-coverage.test.cjs tests/release-e2e.test.cjs",
     "check": "node --check app.js && node --check global-story.js && node --check i18n.js && node --check sw.js"
   },
   "devDependencies": {

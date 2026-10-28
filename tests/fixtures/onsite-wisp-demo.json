@@ -1,0 +1,553 @@
+{
+  "title": "Wisp's Lost Lanterns",
+  "kit": "DEMO",
+  "stops": [
+    {
+      "id": 1,
+      "name": "The Welcome Pumpkin",
+      "lat": 29.0258,
+      "lng": -80.927,
+      "code": "LANTERN-1",
+      "story": {
+        "cozy": "Wisp twirls sadly, her light flickering like a dying candle. \"My first lantern rolled away right at the start!\" she cries, her voice barely a whisper. \"Without it, I can't remember which way is home. Please — you have to help me find it.\"",
+        "spooky": "A carved pumpkin grins where no pumpkin should be. Something glows inside it — something alive, something watching. The grin widens as you approach, and you realize: it's not a pumpkin at all. It's a lantern, and it's been waiting for you.",
+        "afterdark": "The old-timers say a light once wandered this road, looking for the turning it missed in 1768. They say it still wanders, still searching, still hoping. Tonight, that light is Wisp — and tonight, you can help her find her way home.",
+        "overdrive": "Dr. Z's voice crackles through the static: \"FULL MADNESS engaged! My sensors detect faster teams ahead of you. That pumpkin isn't smiling — it's SMIRKING. Wipe that smirk off its face and reclaim what's Wisp's!\""
+      },
+      "puzzle": {
+        "cozy": {
+          "q": "Count the pumpkins in the patch picture your organizer showed you. How many are smiling?",
+          "a": "1",
+          "type": "number"
+        },
+        "spooky": {
+          "q": "Riddle: I have a face but cannot see, I glow but cannot flee. On Halloween night I watch the street. What am I?",
+          "a": "jack-o-lantern",
+          "type": "text"
+        },
+        "afterdark": {
+          "q": "The colony year hides in the welcome sign's numbers. Add its digits. What do you get?",
+          "a": "22",
+          "type": "number"
+        },
+        "overdrive": {
+          "q": "Dr. Z's madness meter reads 6.66. Round to the nearest whole number and multiply by the number of lanterns.",
+          "a": "42",
+          "type": "number"
+        }
+      },
+      "fallback": {
+        "q": "What color is the ribbon on the welcome sign?",
+        "a": "orange"
+      },
+      "hints": [
+        "Look low — lanterns love the ground.",
+        "Count slowly, out loud, as a team.",
+        "Ranger assist: exactly 1 pumpkin is smiling."
+      ],
+      "art": "stop-1-pumpkin.webp",
+      "wisp": "That's MINE! Oh — oh! It still remembers me. Quick, light it!",
+      "lit": "One down! See how it glows? That's my happy leaking out."
+    },
+    {
+      "id": 2,
+      "name": "The Whispering Oak",
+      "lat": 29.0262,
+      "lng": -80.9264,
+      "code": "LANTERN-2",
+      "story": {
+        "cozy": "The big oak is Wisp's best friend. He hid a lantern in his branches centuries ago, and he's been waiting for someone worthy to claim it. \"Oakie only hides things for friends,\" Wisp whispers. \"Are we friends?\"",
+        "spooky": "The oak's branches are bare, but something in the canopy breathes in and out, in and out — like the tree is dreaming. The leaves rustle though there's no wind. A voice whispers from the branches: \"Whooo dares to enter my domain?\"",
+        "afterdark": "They say this oak was a hanging tree in the 1800s. On still nights the leaves whisper names — the names of those who never left. Listen carefully. Is one of them yours? Or is it Wisp's, calling out for help?",
+        "overdrive": "Two hundred years this oak has stood, and it has seen faster Keepers than you. Oakie, be honest — are they slow? …He says yes. MOVE. That lantern is yours for the taking, but the oak won't wait forever."
+      },
+      "puzzle": {
+        "cozy": {
+          "q": "Find the oak. How many wooden swings or benches face it?",
+          "a": "0",
+          "type": "number"
+        },
+        "spooky": {
+          "q": "I whisper without a mouth and shelter without walls. I drop acorns for the squirrels below. What am I?",
+          "a": "oak",
+          "type": "text"
+        },
+        "afterdark": {
+          "q": "The word 'whispering' hides a number. Count its letters, then subtract the benches (2).",
+          "a": "8",
+          "type": "number"
+        },
+        "overdrive": {
+          "q": "A ribbon fence guards the oak. It runs 15 metres, with a post every 3 metres — including a post at each end. How many posts are there?",
+          "a": "6",
+          "type": "number"
+        }
+      },
+      "fallback": {
+        "q": "What is carved on the small sign by the oak?",
+        "a": "wisp"
+      },
+      "hints": [
+        "Face the tree like it is facing you.",
+        "Only count the ones looking at the oak.",
+        "Ranger assist: no benches or swings face the oak."
+      ],
+      "art": "stop-2-oak.webp",
+      "wisp": "Shhh — Oakie is sleeping. He only hides things for friends. We're friends, right?",
+      "lit": "Got it! Oakie says you're officially tree-approved."
+    },
+    {
+      "id": 3,
+      "name": "The Giggling Graveyard (pretend!)",
+      "lat": 29.0266,
+      "lng": -80.9258,
+      "code": "LANTERN-3",
+      "story": {
+        "cozy": "Don't worry — these tombstones are made of foam, and every ghost here just wants to play tag. The giggling isn't coming from any of them. It's coming from underneath. \"Tag, you're it!\" Wisp giggles. \"Kidding — unless…? No, kidding. Probably.\"",
+        "spooky": "The foam tombstones lean like bad teeth, and the giggling isn't coming from any of them. It's coming from underneath. The ground trembles slightly, and you realize: the graveyard is alive, and it's laughing at you.",
+        "afterdark": "Pretend stones, real ground. The town buried its 1918 flu dead in a field like this one — and on Halloween the veil is thin enough to hear them laugh. They're not mocking you. They're inviting you to play.",
+        "overdrive": "The ghosts keep score, and right now you're losing to a team of TODDLERS. Tag them back. TAG. THEM. BACK. The graveyard is watching, and it's not impressed. Show them what real Keepers can do."
+      },
+      "puzzle": {
+        "cozy": {
+          "q": "One foam tombstone says R.I.P. — Rest In... what? (The silly word on the stone!)",
+          "a": "pumpkins",
+          "type": "text"
+        },
+        "spooky": {
+          "q": "The gnome's hat points to the tombstones. His hat is red. What color is it?",
+          "a": "red",
+          "type": "text"
+        },
+        "afterdark": {
+          "q": "One stone reads 'Here lies Wisp's lantern'. Count the letters in 'lantern'.",
+          "a": "7",
+          "type": "number"
+        },
+        "overdrive": {
+          "q": "The graveyard has 5 tombstones. Each tombstone has 4 letters. Add the letters to the number of stones.",
+          "a": "9",
+          "type": "number"
+        }
+      },
+      "fallback": {
+        "q": "How many foam tombstones are there?",
+        "a": "5"
+      },
+      "hints": [
+        "Read the stones — one of them is joking.",
+        "It rhymes with the patch from Stop 1.",
+        "Ranger assist: Rest In Pumpkins."
+      ],
+      "art": "stop-3-graveyard.webp",
+      "wisp": "Tag, you're it! Kidding — unless…? No, kidding. Probably.",
+      "lit": "The ghosts are doing the wave. That's their applause. You're welcome."
+    },
+    {
+      "id": 4,
+      "name": "The Spider's Counting Web",
+      "lat": 29.027,
+      "lng": -80.9252,
+      "code": "LANTERN-4",
+      "story": {
+        "cozy": "Mrs. Spider — she's friendly, and made of pipe cleaners — has a lantern tangled in her web! \"She says it with all eight legs. It's a lot of hi.\" Wisp translates. \"She only lends it to good listeners. Are you a good listener?\"",
+        "spooky": "The web stretches between the gazebo posts like a trap, and the dew on it isn't dew — it's too thick, and it trembles when you step close. Mrs. Spider watches you with all eight eyes, and you can feel her grading you.",
+        "afterdark": "Orb weavers rebuild every night. This one has rebuilt in this exact spot for eleven years. She remembers every face that's ever been caught. She's waiting to see if yours is worth remembering.",
+        "overdrive": "Mrs. Spider has rebuilt eleven webs tonight AND finished a crossword. Your excuse is WHAT, exactly? Untangle that lantern. Clock's ticking. She's losing patience, and spiders are not known for their patience."
+      },
+      "puzzle": {
+        "cozy": {
+          "q": "A real spider has 8 legs. Mrs. Spider is holding up 3 legs to wave. How many legs are on the ground?",
+          "a": "5",
+          "type": "number"
+        },
+        "spooky": {
+          "q": "Mrs. Spider's web has 8 points. She cuts 5. How many remain?",
+          "a": "3",
+          "type": "number"
+        },
+        "afterdark": {
+          "q": "Mrs. Spider has 8 legs. She gives 3 to her sister and 4 to her brother. How many legs does she have left?",
+          "a": "1",
+          "type": "number"
+        },
+        "overdrive": {
+          "q": "Mrs. Spider weaves 8 legs. Each leg has 7 joints. How many joints total? Count the digits.",
+          "a": "11",
+          "type": "number"
+        }
+      },
+      "fallback": {
+        "q": "What color is Mrs. Spider?",
+        "a": "purple"
+      },
+      "hints": [
+        "Start with 8 legs, like every spider.",
+        "She waves with 3 of them.",
+        "Ranger assist: 8 − 3 = 5."
+      ],
+      "art": "stop-4-spider.webp",
+      "wisp": "Mrs. Spider says hi. She says it with all eight legs. It's a lot of hi.",
+      "lit": "Untangled! Mrs. Spider is doing a happy leg-dance. All eight. It's a LOT."
+    },
+    {
+      "id": 5,
+      "name": "The Owl's Night Watch",
+      "lat": 29.0274,
+      "lng": -80.9246,
+      "code": "LANTERN-5",
+      "story": {
+        "cozy": "High in the tree, Professor Hoot guards a lantern. He only lends it to good listeners. \"Professor Hoot is very serious,\" Wisp whispers. \"Do your serious face. …Not that serious. Dial it back.\"",
+        "spooky": "The owl doesn't blink. Owls can't — but this one isn't trying to. It watches you solve, and you can feel it grading you. The silence is heavy, expectant. One wrong answer and you'll fail the test.",
+        "afterdark": "Barred owls ask 'who cooks for you.' The old stories say if you answer wrong, you follow the sound into the dark and don't come back. Answer carefully. The owl is listening.",
+        "overdrive": "Professor Hoot graded your last answer a C+. A C! In MY hunt! Listen harder, answer faster — make an owl proud. He's waiting, and owls are not known for their patience. Well, they are. But he's not."
+      },
+      "puzzle": {
+        "cozy": {
+          "q": "Listen to the sound your phone plays at this stop: is it an owl, a cat, or a frog?",
+          "a": "owl",
+          "type": "text"
+        },
+        "spooky": {
+          "q": "The owl's favorite time rhymes with 'twilight light'. What is it?",
+          "a": "twilight",
+          "type": "text"
+        },
+        "afterdark": {
+          "q": "Professor Hoot's name has 4 letters. The owl hoots 6 times. Add them.",
+          "a": "10",
+          "type": "number"
+        },
+        "overdrive": {
+          "q": "Professor Hoot hoots 10 times. Each hoot has 2 syllables. Add the syllables to the number of hoots.",
+          "a": "12",
+          "type": "number"
+        }
+      },
+      "fallback": {
+        "q": "What two letters does an owl 'say'?",
+        "a": "ho"
+      },
+      "hints": [
+        "It is the sound this whole stop is named after.",
+        "Twilight is this bird's favorite time.",
+        "Ranger assist: it's the owl."
+      ],
+      "art": "stop-5-owl.webp",
+      "wisp": "Professor Hoot is very serious. Do your serious face. …Not that serious. Dial it back.",
+      "lit": "‘Hoo,’ he says. That's owl for ‘well done.’ I translated. You're welcome."
+    },
+    {
+      "id": 6,
+      "name": "The Lantern Parade Ground",
+      "lat": 29.0278,
+      "lng": -80.924,
+      "code": "LANTERN-6",
+      "story": {
+        "cozy": "The last lantern! Light it and the whole parade glows. Wisp's hands are all shaky. \"Do I have hands? I'm shaky anyway!\" she laughs, her light flickering with joy. \"This is it — the last one!\"",
+        "spooky": "The empty parade ground waits. Six lanterns, six shadows — but there are seven shadows moving on the grass, and one of them is waving at you. Wisp's light flickers nervously. \"That's... that's not one of mine.\"",
+        "afterdark": "Every lantern you've lit is still burning behind you, a dotted line of fire through the dark. One more, and the road home exists. One more, and Wisp can find her way. One more, and the night is yours.",
+        "overdrive": "FINAL STRETCH. Wisp ran the numbers and they are NOT in your favor. Light that last lantern like you mean it — FULL! MADNESS! The parade ground is watching, the shadows are waiting, and Dr. Z is timing you. GO!"
+      },
+      "puzzle": {
+        "cozy": {
+          "q": "Teamwork finale: how many lanterns did you light on the whole hunt (including this one)?",
+          "a": "6",
+          "type": "number"
+        },
+        "spooky": {
+          "q": "If each lantern burns for 3 hours, how many total hours do all 6 burn?",
+          "a": "18",
+          "type": "number"
+        },
+        "afterdark": {
+          "q": "The 6 lanterns are numbered 1 through 6. Add the even numbers.",
+          "a": "12",
+          "type": "number"
+        },
+        "overdrive": {
+          "q": "FINAL CHALLENGE: 6 lanterns, each burns 3 hours. Total burn time? Add the digits of your answer.",
+          "a": "9",
+          "type": "number"
+        }
+      },
+      "fallback": {
+        "q": "Say the magic words out loud as a team: 'Light the way, Wisp!' then type: wisp",
+        "a": "wisp"
+      },
+      "hints": [
+        "Count the stops on your map.",
+        "One lantern per stop.",
+        "Ranger assist: 6 lanterns."
+      ],
+      "art": "stop-6-lantern.webp",
+      "wisp": "This is it — the last one! My hands are all shaky. Do I have hands? I'm shaky anyway!",
+      "lit": "IT'S LIT! Look at them all — look at ME! I'm basically a sunrise!"
+    }
+  ],
+  "intro": {
+    "en": "Wisp the will-o'-the-wisp has lost her 6 glow lanterns. Without them, she cannot find her way home — and the shadows grow longer. Your team are her Lantern Keepers. Find each stop, solve the puzzle, and relight the lanterns before the light fades forever.",
+    "es": "Wisp, la luz fatua, ha perdido sus 6 linternas brillantes. Sin ellas, no puede encontrar el camino a casa — y las sombras se alargan. Tu equipo son sus Guardianes de Linternas. Encuentra cada parada, resuelve el enigma y vuelve a encender las linternas antes de que la luz se apague para siempre.",
+    "fr": "Wisp, la follet, a perdu ses 6 lanternes lumineuses. Sans elles, elle ne peut pas trouver le chemin du retour — et les ombres s'allongent. Votre équipe sont ses Gardiens de Lanternes. Trouvez chaque arrêt, résolvez l'énigme et rallumez les lanternes avant que la lumière ne s'éteigne pour toujours.",
+    "de": "Wisp, die Irrlicht, hat ihre 6 Leuchtlaternen verloren. Ohne sie kann sie den Weg nach Hause nicht finden — und die Schatten werden länger. Dein Team sind ihre Laternenwächter. Finde jeden Halt, löse das Rätsel und entzünde die Laternen, bevor das Licht für immer erlischt.",
+    "pt": "Wisp, o fogo-fátuo, perdeu suas 6 lanternas brilhantes. Sem elas, ela não consegue encontrar o caminho de casa — e as sombras ficam mais longas. Sua equipe são os Guardiões de Lanternas. Encontre cada parada, resolva o enigma e reacenda as lanternas antes que a luz se apague para sempre."
+  },
+  "outro": {
+    "en": "All 6 lanterns are lit. Wisp can find her way home — and so can you, Lantern Keepers. The light you carry is the light you share. Take your team photo, show this screen at the finale table, and claim your badge & treat.",
+    "es": "Las 6 linternas están encendidas. Wisp puede encontrar el camino a casa — y tú también, Guardianes de Linternas. La luz que llevas es la luz que compartes. Toma la foto de tu equipo, muestra esta pantalla en la mesa final y reclama tu insignia y premio.",
+    "fr": "Les 6 lanternes sont allumées. Wisp peut trouver le chemin du retour — et vous aussi, Gardiens de Lanternes. La lumière que vous portez est la lumière que vous partagez. Prenez la photo de votre équipe, montrez cet écran à la table finale et réclamez votre badge et votre friandise.",
+    "de": "Alle 6 Laternen sind angezündet. Wisp kann den Weg nach Hause finden — und auch du, Laternenwächter. Das Licht, das du trägst, ist das Licht, das du teilst. Mach ein Teamfoto, zeige diesen Bildschirm am Finaltisch und hole dir dein Abzeichen und deine Belohnung.",
+    "pt": "As 6 lanternas estão acesas. Wisp pode encontrar o caminho de casa — e você também, Guardiões de Lanternas. A luz que você carrega é a luz que você compartilha. Tire a foto da sua equipe, mostre esta tela na mesa final e reivindique sua insígnia e prêmio."
+  },
+  "transitions": {
+    "en": [
+      "The wind picks up, carrying whispers of the next lantern's location...",
+      "A rustle in the bushes — another lantern's glow beckons from deeper in the park...",
+      "The shadows part slightly, revealing the path to the next light...",
+      "Wisp flutters ahead, her glow growing stronger with each lantern you find...",
+      "The air grows colder, but the light grows warmer. Almost there...",
+      "One more. Just one more, and the whole night will shine..."
+    ],
+    "es": [
+      "El viento se levanta, llevando susurros de la ubicación de la próxima linterna...",
+      "Un crujido en los arbustos — el brillo de otra linterna llama desde más adelante en el parque...",
+      "Las sombras se separan ligeramente, revelando el camino hacia la próxima luz...",
+      "Wisp revolotea adelante, su brillo se fortalece con cada linterna que encuentras...",
+      "El aire se enfría, pero la luz se calienta. Casi llegamos...",
+      "Una más. Solo una más, y toda la noche brillará..."
+    ],
+    "fr": [
+      "Le vent se lève, portant des murmures de l'emplacement de la prochaine lanterne...",
+      "Un bruissement dans les buissons — la lueur d'une autre lanterne appelle du plus profond du parc...",
+      "Les ombres se séparent légèrement, révélant le chemin vers la prochaine lumière...",
+      "Wisp vole devant, sa lueur se renforce avec chaque lanterne que vous trouvez...",
+      "L'air se refroidit, mais la lumière se réchauffe. Presque arrivé...",
+      "Une de plus. Juste une de plus, et toute la nuit brillera..."
+    ],
+    "de": [
+      "Der Wind steigt auf, trägt Flüstern vom nächsten Laternenort...",
+      "Ein Rascheln im Gebüsch — das Glühen einer anderen Laterne lockt aus dem tieferen Park...",
+      "Die Schatten teilen sich leicht, zeigen den Weg zum nächsten Licht...",
+      "Wisp flattert voran, ihr Glühen wird stärker mit jeder Laterne, die du findest...",
+      "Die Luft wird kälter, aber das Licht wird wärmer. Fast da...",
+      "Noch eine. Nur noch eine, und die ganze Nacht wird leuchten..."
+    ],
+    "pt": [
+      "O vento aumenta, carregando sussurros sobre a localização da próxima lanterna...",
+      "Um farfalhar nos arbustos — o brilho de outra lanterna chama de mais fundo no parque...",
+      "As sombras se separam levemente, revelando o caminho para a próxima luz...",
+      "Wisp voa à frente, seu brilho fica mais forte com cada lanterna que você encontra...",
+      "O ar fica mais frio, mas a luz fica mais quase. Quase lá...",
+      "Mais uma. Só mais uma, e a noite inteira vai brilhar..."
+    ]
+  },
+  "character_arcs": {
+    "wisp": {
+      "en": {
+        "start": "Wisp is lost, alone, and fading. Her light is dim, her hope is gone.",
+        "middle": "With each lantern you find, Wisp's light grows stronger. She begins to remember who she is.",
+        "end": "Wisp is whole again. Her light is bright, her hope is restored. She is ready to go home."
+      },
+      "es": {
+        "start": "Wisp está perdida, sola y desvaneciéndose. Su luz es tenue, su esperanza se ha ido.",
+        "middle": "Con cada linterna que encuentras, la luz de Wisp se fortalece. Comienza a recordar quién es.",
+        "end": "Wisp está completa de nuevo. Su luz es brillante, su esperanza está restaurada. Está lista para ir a casa."
+      }
+    },
+    "drz": {
+      "en": {
+        "start": "Dr. Z is competitive and dismissive. He doesn't believe you can find the lanterns.",
+        "middle": "Dr. Z begins to respect your team. He offers hints, though he pretends he doesn't.",
+        "end": "Dr. Z is proud of your team. He admits you are true Lantern Keepers."
+      },
+      "es": {
+        "start": "Dr. Z es competitivo y despectivo. No cree que puedas encontrar las linternas.",
+        "middle": "Dr. Z comienza a respetar a tu equipo. Ofrece pistas, aunque finge que no lo hace.",
+        "end": "Dr. Z está orgulloso de tu equipo. Admite que son verdaderos Guardianes de Linternas."
+      }
+    },
+    "professor_hoot": {
+      "en": {
+        "start": "Professor Hoot watches silently. He has seen many teams fail.",
+        "middle": "Professor Hoot begins to test your team. He offers cryptic clues.",
+        "end": "Professor Hoot approves. He recognizes you as true Lantern Keepers."
+      },
+      "es": {
+        "start": "El Profesor Hoot observa en silencio. Ha visto fallar a muchos equipos.",
+        "middle": "El Profesor Hoot comienza a probar a tu equipo. Ofrece pistas crípticas.",
+        "end": "El Profesor Hoot aprueba. Reconoce que son verdaderos Guardianes de Linternas."
+      }
+    }
+  },
+  "themes": {
+    "light_vs_darkness": {
+      "en": "The eternal struggle between illumination and shadow. Every lantern you light pushes back the darkness.",
+      "es": "La lucha eterna entre la iluminación y la sombra. Cada linterna que enciendas hace retroceder la oscuridad."
+    },
+    "reunion": {
+      "en": "What was scattered is gathered; what was lost is found. The lanterns are pieces of Wisp's home.",
+      "es": "Lo que fue dispersado es reunido; lo que fue perdido es encontrado. Las linternas son pedazos del hogar de Wisp."
+    },
+    "passage": {
+      "en": "Moving from one state to another, from darkness to light. Each stop is a step on the journey home.",
+      "es": "Moverse de un estado a otro, de la oscuridad a la luz. Cada parada es un paso en el camino a casa."
+    },
+    "balance": {
+      "en": "Light and dark in harmony, not conflict. The lanterns bring equilibrium to the night.",
+      "es": "Luz y oscuridad en armonía, no en conflicto. Las linternas traen equilibrio a la noche."
+    }
+  },
+  "cultural_adaptations": {
+    "east_asian": {
+      "en": "The lantern is a symbol of hope, reunion, and the guidance of ancestors. In East Asian cultures, lanterns guide spirits home and carry wishes to the heavens.",
+      "es": "El farol es un símbolo de esperanza, reunión y la guía de los ancestros. En las culturas de Asia Oriental, los faroles guían a los espíritus a casa y llevan deseos al cielo."
+    },
+    "south_asian": {
+      "en": "The festival of lights celebrates the victory of light over darkness, good over evil. Lamps are lit to honor the triumph of knowledge over ignorance.",
+      "es": "El festival de las luces celebra la victoria de la luz sobre la oscuridad, del bien sobre el mal. Se encienden lámparas para honrar el triunfo del conocimiento sobre la ignorancia."
+    },
+    "western": {
+      "en": "On the longest night, when shadows are deepest, light is most precious. Lanterns push back the darkness and guide the way home.",
+      "es": "En la noche más larga, cuando las sombras son más profundas, la luz es más preciada. Las linternas hacen retroceder la oscuridad y guían el camino a casa."
+    },
+    "latin_american": {
+      "en": "The lanterns guide the spirits home during the celebration of life and memory. Each light is a prayer, a remembrance, a connection to those who came before.",
+      "es": "Los faroles guían a los espíritus a casa durante la celebración de la vida y la memoria. Cada luz es una oración, un recuerdo, una conexión con los que vinieron antes."
+    },
+    "middle_eastern": {
+      "en": "The lantern is a symbol of guidance, hope, and the light of knowledge. In Middle Eastern traditions, lanterns represent the divine light that guides the lost.",
+      "es": "El farol es un símbolo de guía, esperanza y la luz del conocimiento. En las tradiciones de Medio Oriente, los faroles representan la luz divina que guía a los perdidos."
+    },
+    "african": {
+      "en": "The lantern carries the wisdom of ancestors and the light of community. In African traditions, lanterns represent the collective light that guides the village home.",
+      "es": "El farol lleva la sabiduría de los ancestros y la luz de la comunidad. En las tradiciones africanas, los faroles representan la luz colectiva que guía al pueblo a casa."
+    }
+  },
+  "dynamic_story": {
+    "weather_effects": {
+      "clear": "The sky is clear and bright — perfect conditions for a lantern hunt.",
+      "cloudy": "Clouds drift overhead, but the lanterns shine through. Nothing can dim your light.",
+      "rain": "Rain falls softly, but the lanterns burn bright. Keepers don't let a little water stop them.",
+      "fog": "Fog rolls in, but the lanterns pierce through. Your light is stronger than the mist."
+    },
+    "time_of_day": {
+      "dawn": "The sun rises as you begin — a new day, a new hunt.",
+      "day": "Daylight surrounds you, but the lanterns still glow. Some lights are meant to shine in any conditions.",
+      "dusk": "The sun sets as you play — the perfect time for lanterns to come alive.",
+      "night": "Darkness falls, but your lanterns push back the night. You are the light."
+    },
+    "player_progress": {
+      "start": "The hunt begins. Six lanterns await, and Wisp is counting on you.",
+      "quarter": "One lantern down. Five to go. Wisp's light grows a little brighter.",
+      "halfway": "Three lanterns lit. Halfway there. Wisp is starting to remember the way home.",
+      "almost": "Five lanterns lit. One more. Wisp can almost see the path home.",
+      "complete": "All six lanterns lit. Wisp is home. You did it, Lantern Keepers."
+    }
+  },
+  "story_choices": {
+    "en": [
+      {
+        "stop": 1,
+        "choice": "Help Wisp search for the lantern",
+        "outcome": "Wisp tells you about the lantern parade, where all the lights gather. Her voice is full of hope.",
+        "alternative": "Ask Wisp about her home"
+      },
+      {
+        "stop": 3,
+        "choice": "Play tag with the ghosts",
+        "outcome": "The ghosts whisper clues. \"Rest In Pumpkins,\" one giggles. \"That's where the light hides.\"",
+        "alternative": "Ask the ghosts for help"
+      },
+      {
+        "stop": 5,
+        "choice": "Answer the owl's question correctly",
+        "outcome": "The owl sighs. \"The answer is not in the question, but in the asking. Listen to the wind.\"",
+        "alternative": "Ask the owl for a hint"
+      }
+    ],
+    "es": [
+      {
+        "stop": 1,
+        "choice": "Ayudar a Wisp a buscar la linterna",
+        "outcome": "Wisp te cuenta sobre el desfile de linternas, donde se reúnen todas las luces. Su voz está llena de esperanza.",
+        "alternative": "Preguntarle a Wisp sobre su hogar"
+      }
+    ]
+  },
+  "environmental_storytelling": {
+    "en": {
+      "park": "The park is quiet, peaceful. The lanterns glow softly among the trees, waiting to be found.",
+      "graveyard": "The graveyard is still, silent. The foam tombstones cast long shadows in the moonlight.",
+      "gazebo": "The gazebo stands empty, but the web between its posts glitters with dew — and something more.",
+      "parade_ground": "The parade ground is vast, open. Six lanterns wait in the darkness, their light ready to be rekindled."
+    },
+    "es": {
+      "park": "El parque está tranquilo, pacífico. Las linternas brillan suavemente entre los árboles, esperando ser encontradas.",
+      "graveyard": "El cementerio está quieto, silencioso. Las lápidas de espuma proyectan largas sombras a la luz de la luna.",
+      "gazebo": "El quiosco está vacío, pero la tela entre sus postes brilla con rocío — y algo más.",
+      "parade_ground": "El suelo del desfile es vasto, abierto. Seis linternas esperan en la oscuridad, su luz lista para ser reavivada."
+    }
+  },
+  "story_content": {
+    "en": {
+      "intro": "Wisp the will-o'-the-wisp has lost her 6 glow lanterns. Without them, she cannot find her way home — and the shadows grow longer. Your team are her Lantern Keepers. Find each stop, solve the puzzle, and relight the lanterns before the light fades forever.",
+      "outro": "All 6 lanterns are lit. Wisp can find her way home — and so can you, Lantern Keepers. The light you carry is the light you share. Take your team photo, show this screen at the finale table, and claim your badge & treat.",
+      "transitions": [
+        "The wind picks up, carrying whispers of the next lantern's location...",
+        "A rustle in the bushes — another lantern's glow beckons from deeper in the park...",
+        "The shadows part slightly, revealing the path to the next light...",
+        "Wisp flutters ahead, her glow growing stronger with each lantern you find...",
+        "The air grows colder, but the light grows warmer. Almost there...",
+        "One more. Just one more, and the whole night will shine..."
+      ]
+    },
+    "es": {
+      "intro": "Wisp, la luz fatua, ha perdido sus 6 linternas brillantes. Sin ellas, no puede encontrar el camino a casa — y las sombras se alargan. Tu equipo son sus Guardianes de Linternas. Encuentra cada parada, resuelve el enigma y vuelve a encender las linternas antes de que la luz se apague para siempre.",
+      "outro": "Las 6 linternas están encendidas. Wisp puede encontrar el camino a casa — y tú también, Guardianes de Linternas. La luz que llevas es la luz que compartes. Toma la foto de tu equipo, muestra esta pantalla en la mesa final y reclama tu insignia y premio.",
+      "transitions": [
+        "El viento se levanta, llevando susurros de la ubicación de la próxima linterna...",
+        "Un crujido en los arbustos — el brillo de otra linterna llama desde más adelante en el parque...",
+        "Las sombras se separan ligeramente, revelando el camino hacia la próxima luz...",
+        "Wisp revolotea adelante, su brillo se fortalece con cada linterna que encuentras...",
+        "El aire se enfría, pero la luz se calienta. Casi llegamos...",
+        "Una más. Solo una más, y toda la noche brillará..."
+      ]
+    },
+    "fr": {
+      "intro": "Wisp, la follet, a perdu ses 6 lanternes lumineuses. Sans elles, elle ne peut pas trouver le chemin du retour — et les ombres s'allongent. Votre équipe sont ses Gardiens de Lanternes. Trouvez chaque arrêt, résolvez l'énigme et rallumez les lanternes avant que la lumière ne s'éteigne pour toujours.",
+      "outro": "Les 6 lanternes sont allumées. Wisp peut trouver le chemin du retour — et vous aussi, Gardiens de Lanternes. La lumière que vous portez est la lumière que vous partagez. Prenez la photo de votre équipe, montrez cet écran à la table finale et réclamez votre badge et votre friandise.",
+      "transitions": [
+        "Le vent se lève, portant des murmures de l'emplacement de la prochaine lanterne...",
+        "Un bruissement dans les buissons — la lueur d'une autre lanterne appelle du plus profond du parc...",
+        "Les ombres se séparent légèrement, révélant le chemin vers la prochaine lumière...",
+        "Wisp vole devant, sa lueur se renforce avec chaque lanterne que vous trouvez...",
+        "L'air se refroidit, mais la lumière se réchauffe. Presque arrivé...",
+        "Une de plus. Juste une de plus, et toute la nuit brillera..."
+      ]
+    },
+    "de": {
+      "intro": "Wisp, die Irrlicht, hat ihre 6 Leuchtlaternen verloren. Ohne sie kann sie den Weg nach Hause nicht finden — und die Schatten werden länger. Dein Team sind ihre Laternenwächter. Finde jeden Halt, löse das Rätsel und entzünde die Laternen, bevor das Licht für immer erlischt.",
+      "outro": "Alle 6 Laternen sind angezündet. Wisp kann den Weg nach Hause finden — und auch du, Laternenwächter. Das Licht, das du trägst, ist das Licht, das du teilst. Mach ein Teamfoto, zeige diesen Bildschirm am Finaltisch und hole dir dein Abzeichen und deine Belohnung.",
+      "transitions": [
+        "Der Wind steigt auf, trägt Flüstern vom nächsten Laternenort...",
+        "Ein Rascheln im Gebüsch — das Glühen einer anderen Laterne lockt aus dem tieferen Park...",
+        "Die Schatten teilen sich leicht, zeigen den Weg zum nächsten Licht...",
+        "Wisp flattert voran, ihr Glühen wird stärker mit jeder Laterne, die du findest...",
+        "Die Luft wird kälter, aber das Licht wird wärmer. Fast da...",
+        "Noch eine. Nur noch eine, und die ganze Nacht wird leuchten..."
+      ]
+    },
+    "pt": {
+      "intro": "Wisp, o fogo-fátuo, perdeu suas 6 lanternas brilhantes. Sem elas, ela não consegue encontrar o caminho de casa — e as sombras ficam mais longas. Sua equipe são os Guardiões de Lanternas. Encontre cada parada, resolva o enigma e reacenda as lanternas antes que a luz se apague para sempre.",
+      "outro": "As 6 lanternas estão acesas. Wisp pode encontrar o caminho de casa — e você também, Guardiões de Lanternas. A luz que você carrega é a luz que você compartilha. Tire a foto da sua equipe, mostre esta tela na mesa final e reivindique sua insígnia e prêmio.",
+      "transitions": [
+        "O vento aumenta, carregando sussurros sobre a localização da próxima lanterna...",
+        "Um farfalhar nos arbustos — o brilho de outra lanterna chama de mais fundo no parque...",
+        "As sombras se separam levemente, revelando o caminho para a próxima luz...",
+        "Wisp voa à frente, seu brilho fica mais forte com cada lanterna que você encontra...",
+        "O ar fica mais frio, mas a luz fica mais quase. Quase lá...",
+        "Mais uma. Só mais uma, e a noite inteira vai brilhar..."
+      ]
+    }
+  }
+}
