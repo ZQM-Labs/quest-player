@@ -1,6 +1,6 @@
 "use strict";
-/* lantern-player — game state machine.
-   Content comes from a pack (exported by lantern-content). DEMO_PACK below is
+/* quest-player — game state machine.
+   Content comes from a quest pack. DEMO_PACK below is
    the embedded example so ?demo=1 plays with no backend. Each stop must provide
    story and puzzle content for all four scare levels; malformed packs are rejected. */
 

@@ -11,10 +11,20 @@ set -euo pipefail
 SITE_URL="${SITE_URL:-https://zqmlabs.com}"
 API_URL="${API_URL:-https://api.zqmlabs.com}"
 PLAYER_PATH="/games/hunt-for-wisps/play"
-NODE_EXE="/c/Users/zqmco/AppData/Local/hermes/node/node.exe"
-TOOLS_DIR="C:/Users/zqmco/zqm-labs/lantern-player/tools"
-PLAYER_SRC="C:/Users/zqmco/lantern-player/app.py"
-PYTHON_EXE="/c/py312/python.exe"
+# Paths default to this repository, not any one machine's old layout.
+# (The previous defaults pointed at a retired Windows/Hermes checkout and a
+# lantern-content tree that does not exist in this repo, so sections 6-8
+# always skipped or failed anywhere else. Override any of these via env.)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+NODE_EXE="${NODE_EXE:-node}"
+TOOLS_DIR="${TOOLS_DIR:-$SCRIPT_DIR}"
+PLAYER_SRC="${PLAYER_SRC:-$REPO_ROOT/app.js}"
+PYTHON_EXE="${PYTHON_EXE:-python3}"
+PACK_FILE="${PACK_FILE:-$REPO_ROOT/wisp-demo.json}"
+# NOTE: sections 6-7 need verify-playthrough.js / verify-deeplink.js in
+# TOOLS_DIR; those helpers are not shipped in this repo, so the sections
+# skip (as before) unless you provide them.
 
 # Counters
 PASS=0
@@ -280,8 +290,8 @@ echo
 echo "--- 8. Content Pack ---"
 if [ -f "$PYTHON_EXE" ]; then
     OUTPUT=$("$PYTHON_EXE" -c "
-import json
-pack = json.load(open('C:/Users/zqmco/zqm-labs/lantern-content/content-packs/wisp-demo.json', encoding='utf-8'))
+import json, os
+pack = json.load(open(os.environ.get('PACK_FILE', 'wisp-demo.json'), encoding='utf-8'))
 stops = pack.get('stops', [])
 print(f'stops:{len(stops)}')
 print(f'hints:{[len(s.get(\"hints\", [])) for s in stops]}')
@@ -302,10 +312,10 @@ print(f'art:{all(s.get(\"art\", \"\") != \"\" for s in stops)}')
         test "3 hints each" "yes" "no"
     fi
     
-    if echo "$OUTPUT" | grep -q "puzzle:[3, 3, 3, 3, 3, 3]"; then
-        test "3 puzzle variants" "yes" "yes"
+    if echo "$OUTPUT" | grep -q "puzzle:[4, 4, 4, 4, 4, 4]"; then
+        test "4 puzzle variants (one per Dial level)" "yes" "yes"
     else
-        test "3 puzzle variants" "yes" "no"
+        test "4 puzzle variants (one per Dial level)" "yes" "no"
     fi
     
     if echo "$OUTPUT" | grep -q "art:True"; then

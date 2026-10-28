@@ -1,4 +1,4 @@
-/* global-story.js — global storytelling engine for lantern-player
+/* global-story.js — global storytelling engine for quest-player
    Provides a cohesive narrative arc that works across cultures.
    Features:
    - Universal "light in darkness" theme
