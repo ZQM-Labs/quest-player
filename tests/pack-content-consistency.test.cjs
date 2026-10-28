@@ -100,6 +100,25 @@ test("embedded player pack and standalone demo pack keep puzzle content in sync"
   }
 });
 
+test("embedded player pack and standalone demo pack keep story and hints in sync", () => {
+  // The standalone file is not shipped, precached, or consumed by the deploy
+  // chain — the embedded pack is what demo mode actually runs. But the file
+  // is the reference copy readers reach for, and it had drifted from the
+  // shipped pack in story wording and hints shape (flat list vs per-tier
+  // dicts). Puzzles are pinned by the test above; this pins the rest so
+  // the file cannot silently diverge from what players see again.
+  const standalone = JSON.parse(fs.readFileSync(path.join(root, "wisp-demo.json"), "utf8"));
+  assert.equal(standalone.stops.length, pack.stops.length, "both demo packs should have the same stop count");
+  for (const [i, stop] of pack.stops.entries()) {
+    const other = standalone.stops[i];
+    assert.equal(other.id, stop.id, `stop ${i + 1}: IDs should align`);
+    assert.deepEqual(other.story, stop.story,
+      `stop ${i + 1}: standalone and embedded story content should match`);
+    assert.deepEqual(other.hints, stop.hints,
+      `stop ${i + 1}: standalone and embedded hints should match`);
+  }
+});
+
 test("demo overdrive arithmetic answers match the stated operations", () => {
   // 5 tombstones × 4 letters = 20 letters; add 5 tombstones => 25.
   assert.match(pack.stops[2].puzzle.overdrive.q, /5 tombstones/i);
