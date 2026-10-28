@@ -1,4 +1,4 @@
-/* i18n.js — internationalization module for lantern-player
+/* i18n.js — internationalization module for quest-player
    Features:
    - Auto-detects browser language
    - Language switcher UI
