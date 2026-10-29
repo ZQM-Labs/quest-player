@@ -292,3 +292,72 @@ test("language switching preserves progress and clearly discloses incomplete tra
   assert.deepEqual(saved.solved || [], [], "changing language must not reset or invent progress");
   await context.close();
 });
+
+test("stale pause marker from a previous session cannot drive a new hunt timer negative", async () => {
+  // Regression for the 2026-10-29 live demo: a ~7.7-day-old hiddenAt left in
+  // localStorage was added to a fresh hunt's startedAt, showing -11075 min.
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  page.setDefaultTimeout(10000);
+  page.setDefaultNavigationTimeout(15000);
+  await page.goto(baseUrl + "/?demo=1", { waitUntil: "domcontentloaded" });
+  await page.locator("#screen-start.active").waitFor({ state: "visible" });
+  const eightDays = 8 * 24 * 3600 * 1000;
+  await page.evaluate((ago) => {
+    const stale = { team: "QA Verify", scare: "cozy", solved: [], hintsUsed: 0,
+      startedAt: Date.now() - ago, pausedAt: null, hiddenAt: Date.now() - ago,
+      kitId: null, cleanSolves: 0, stopHints: {}, arrivedGps: {} };
+    localStorage.setItem("lantern-state", JSON.stringify(stale));
+  }, eightDays);
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await page.locator("#screen-start.active").waitFor({ state: "visible" });
+  await page.getByLabel("Team name").fill("Timer Regression");
+  await page.getByRole("button", { name: "Start the hunt" }).click();
+  await page.locator('[data-pick="cozy"]').click();
+  await page.locator("#screen-map.active").waitFor({ state: "visible" });
+  const clock = await page.locator("#hunt-clock").innerText();
+  assert.match(clock, /^⏱ \d+:\d{2}$/, "fresh hunt clock must never be negative, stale markers or not");
+  await context.close();
+});
+
+test("audio-cued stop shows a sound replay control, other stops do not", async () => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  page.setDefaultTimeout(10000);
+  page.setDefaultNavigationTimeout(15000);
+  const errors = [];
+  page.on("pageerror", error => errors.push(error.message));
+  await page.goto(baseUrl + "/?demo=1", { waitUntil: "domcontentloaded" });
+  await page.locator("#screen-start.active").waitFor({ state: "visible" });
+  await page.getByLabel("Team name").fill("Sound Check");
+  await page.getByRole("button", { name: "Start the hunt" }).click();
+  await page.locator('[data-pick="cozy"]').click();
+  await page.locator("#screen-map.active").waitFor({ state: "visible" });
+  const answerFor = (id) => page.evaluate((stopId) => {
+    const s = pack.stops.find(x => x.id === stopId);
+    const pz = (s.puzzle && (s.puzzle[state.scare] || s.puzzle.cozy)) || s.fallback;
+    return pz.a;
+  }, id);
+  for (let stop = 1; stop <= 5; stop++) {
+    await page.locator("#next-stop").getByRole("button", { name: /We're at the stop/ }).click();
+    await page.locator("#screen-puzzle.active").waitFor({ state: "visible" });
+    if (stop === 1) {
+      assert.equal(await page.locator("#sound-row").isVisible(), false, "non-audio stop must not show the sound control");
+    }
+    if (stop === 5) {
+      assert.equal(await page.locator("#sound-row").isVisible(), true, "owl stop must show the sound control");
+      await page.locator("#btn-sound").click();
+    }
+    await page.locator("#unlock-code").fill("LANTERN-" + stop);
+    await page.locator("#btn-unlock").click();
+    await page.locator("#puzzle-answer").fill(await answerFor(stop));
+    await page.locator("#btn-answer").click();
+    await page.waitForFunction((expected) => {
+      const saved = JSON.parse(localStorage.getItem("lantern-state") || "{}");
+      return Array.isArray(saved.solved) && saved.solved.length >= expected;
+    }, stop, { timeout: 5000 });
+    if (stop < 5) await page.locator("#screen-map.active").waitFor({ state: "visible", timeout: 5000 });
+  }
+  assert.deepEqual(errors, [], "sound control must not throw page errors");
+  await context.close();
+});

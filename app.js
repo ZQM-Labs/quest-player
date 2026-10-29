@@ -982,6 +982,11 @@ $("btn-start").addEventListener("click", async () => {
     state.solved = []; state.hintsUsed = 0; state.cleanSolves = 0; state.stopHints = {};
     state.arrivedGps = {}; arrivalFired = {}; lastRouteKey = ""; lastCardSig = ""; lastListSig = "";
     state.startedAt = Date.now();
+    // A fresh hunt must not inherit pause/hidden markers from a previous
+    // session: the away-span block below would add (now - stale marker) to
+    // the fresh clock and push it days into the future (live demo 2026-10-29
+    // showed -11075 minutes from a ~7.7-day-old hiddenAt).
+    state.pausedAt = null; state.hiddenAt = null;
     state.kitId = startingKit;
   } else {
     state.startedAt = state.startedAt || Date.now();
@@ -1145,7 +1150,16 @@ window.openStop = function (id) {
     if (currentStop.wisp) { ws.textContent = "\u201C" + currentStop.wisp + "\u201D — Wisp"; ws.style.display = ""; }
     else { ws.textContent = ""; ws.style.display = "none"; }
   }
-  $("puzzle-question").textContent = variant(currentStop, "puzzle").q;
+  const _pz = variant(currentStop, "puzzle");
+  $("puzzle-question").textContent = _pz.q;
+  // Audio-cued stops (the owl stop asks what sound the phone plays) never
+  // had a cue at the stop itself — the only playSound call was at Start.
+  // Show a replay control for questions that ask the player to listen, and
+  // attempt the cue once on arrival (the button stays for a second listen).
+  const _sr = $("sound-row");
+  const _audioCued = /listen|sound|hear/i.test(_pz.q || "");
+  if (_sr) _sr.hidden = !_audioCued;
+  if (_audioCued) playSound("assets/audio/hoot.ogg");
   $("puzzle-answer").value = ""; $("unlock-code").value = "";
   // A QR that carried this stop's sign code pre-fills the unlock field -
   // never another stop's code. (m19)
@@ -1249,6 +1263,8 @@ $("btn-hint").addEventListener("click", () => {
   }
 });
 
+$("btn-sound").addEventListener("click", () => playSound("assets/audio/hoot.ogg"));
+
 /* ---------- audio: play sound effects ---------- */
 let audioCtx = null;
 function playSound(url) {
@@ -1274,7 +1290,7 @@ function playSound(url) {
 
 /* ---------- share: native share or clipboard fallback ---------- */
 function shareTeam() {
-  const mins = state.startedAt ? Math.round((Date.now() - state.startedAt) / 60000) : 0;
+  const mins = state.startedAt ? Math.max(0, Math.round((Date.now() - state.startedAt) / 60000)) : 0;
   const text = `${isDemo ? "(Demo) " : ""}I'm a Lantern Keeper in Wisp's Lost Lanterns! I lit ${state.solved.length} lanterns in ${mins} minutes with ${state.hintsUsed} hints. Join the hunt!`;
   // Strip bearer credentials: ?ac= is the team access code and ?code= is a
   // stop sign code. Keep ?kit= so friends can still join the same kit.
@@ -1300,7 +1316,7 @@ let timerInterval = null;
 function paintClock() {
   const el = $("hunt-clock");
   if (!el || !state.startedAt) return;
-  const secs = Math.floor((Date.now() - state.startedAt) / 1000);
+  const secs = Math.max(0, Math.floor((Date.now() - state.startedAt) / 1000));
   const m = Math.floor(secs / 60), s = secs % 60;
   el.textContent = `⏱ ${m}:${String(s).padStart(2, "0")}`;
 }
@@ -1309,7 +1325,7 @@ function startTimer() {
   timerInterval = setInterval(() => {
     const el = $("hunt-clock");
     if (!el || !state.startedAt) return;
-    const secs = Math.floor((Date.now() - state.startedAt) / 1000);
+    const secs = Math.max(0, Math.floor((Date.now() - state.startedAt) / 1000));
     const m = Math.floor(secs / 60), s = secs % 60;
     el.textContent = `⏱ ${m}:${String(s).padStart(2, "0")}`;
   }, 1000);
@@ -1395,7 +1411,7 @@ function teamTitle(r, stops) {
 
 function finale() {
   stopTracking();
-  const mins = state.startedAt ? Math.round((Date.now() - state.startedAt) / 60000) : 0;
+  const mins = state.startedAt ? Math.max(0, Math.round((Date.now() - state.startedAt) / 60000)) : 0;
   const verified = pack.stops.filter(s => state.arrivedGps && state.arrivedGps[s.id]).length;
   const totalAttempts = Object.values(state.stopAttempts || {}).reduce((a, b) => a + b, 0);
 
