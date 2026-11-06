@@ -17,7 +17,11 @@ function element() {
   };
 }
 
-test("GlobalStory initializes and applies a valid mode and culture", () => {
+test("GlobalStory initializes and applies a valid mode and culture", (t) => {
+  t.mock.timers.enable({
+    apis: ["Date"],
+    now: new Date(2026, 9, 31, 12).getTime()
+  });
   const screens = {
     "screen-start": element(),
     "screen-finale": element(),
@@ -41,6 +45,52 @@ test("GlobalStory initializes and applies a valid mode and culture", () => {
   assert.equal(story.getCurrentCulture(), "western");
   assert.ok(story.adaptedStory);
   assert.equal(typeof story.adaptedStory.intro, "string");
+});
+
+test("story selection follows the existing seasonal boundaries with a controlled clock", async (t) => {
+  const story = require("../global-story.js");
+  const cases = [
+    [1, 1, "lantern_festival"],
+    [2, 28, "lantern_festival"],
+    [3, 19, "halloween"],
+    [3, 20, "spring_equinox"],
+    [6, 19, "halloween"],
+    [6, 20, "summer_solstice"],
+    [7, 1, "halloween"],
+    [9, 15, "halloween"],
+    [9, 16, "mid_autumn"],
+    [10, 1, "halloween"],
+    [10, 31, "halloween"],
+    [11, 1, "diwali"],
+    [11, 14, "diwali"],
+    [11, 15, "halloween"],
+    [12, 31, "halloween"]
+  ];
+
+  for (const [month, day, expected] of cases) {
+    await t.test(`${month}/${day}: ${expected}`, (t) => {
+      // Construct local noon before enabling the mock: detectMode reads local
+      // calendar fields, so the fixture works in every runner timezone.
+      t.mock.timers.enable({
+        apis: ["Date"],
+        now: new Date(2026, month - 1, day, 12).getTime()
+      });
+      // Outside the seasonal windows the existing behavior chooses a random
+      // mode. Select its first entry deterministically instead of changing
+      // the production default to satisfy a test.
+      t.mock.method(Math, "random", () => 0);
+      assert.equal(story.detectMode(), expected);
+    });
+  }
+});
+
+test("out-of-season story selection retains the existing random variety", (t) => {
+  t.mock.timers.enable({
+    apis: ["Date"],
+    now: new Date(2026, 3, 1, 12).getTime()
+  });
+  t.mock.method(Math, "random", () => 0.999);
+  assert.equal(require("../global-story.js").detectMode(), "mid_autumn");
 });
 
 test("service worker precaches the new player modules and available translation files", () => {
