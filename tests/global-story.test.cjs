@@ -17,34 +17,54 @@ function element() {
   };
 }
 
-test("GlobalStory initializes and applies a valid mode and culture", (t) => {
-  t.mock.timers.enable({
-    apis: ["Date"],
-    now: new Date(2026, 9, 31, 12).getTime()
-  });
-  const screens = {
-    "screen-start": element(),
-    "screen-finale": element(),
-    "screen-map": element()
+// Synchronous fixture: the supported Node 18 runtime lacks Date timer mocks.
+// Restore globals even when a story assertion throws.
+function withStoryClock(now, randomValue, check) {
+  const OriginalDate = Date;
+  const originalRandom = Math.random;
+  const timestamp = now.getTime();
+  global.Date = class extends OriginalDate {
+    constructor(...args) {
+      if (args.length) super(...args);
+      else super(timestamp);
+    }
+    static now() { return timestamp; }
   };
-  global.document = {
-    readyState: "loading",
-    addEventListener() {},
-    getElementById(id) { return screens[id] || null; },
-    createElement() { return element(); }
-  };
-  global.navigator = { language: "en-US" };
-  global.pack = { stops: [{ id: 1 }], story_content: {}, environmental_storytelling: {} };
-  global.state = { solved: [] };
-  global.nextUnsolved = () => global.pack.stops[0];
+  Math.random = () => randomValue;
+  try {
+    return check();
+  } finally {
+    global.Date = OriginalDate;
+    Math.random = originalRandom;
+  }
+}
 
-  delete require.cache[require.resolve("../global-story.js")];
-  const story = require("../global-story.js");
-  assert.doesNotThrow(() => story.init());
-  assert.equal(story.getCurrentMode(), "halloween");
-  assert.equal(story.getCurrentCulture(), "western");
-  assert.ok(story.adaptedStory);
-  assert.equal(typeof story.adaptedStory.intro, "string");
+test("GlobalStory initializes and applies a valid mode and culture", () => {
+  withStoryClock(new Date(2026, 9, 31, 12), 0, () => {
+    const screens = {
+      "screen-start": element(),
+      "screen-finale": element(),
+      "screen-map": element()
+    };
+    global.document = {
+      readyState: "loading",
+      addEventListener() {},
+      getElementById(id) { return screens[id] || null; },
+      createElement() { return element(); }
+    };
+    global.navigator = { language: "en-US" };
+    global.pack = { stops: [{ id: 1 }], story_content: {}, environmental_storytelling: {} };
+    global.state = { solved: [] };
+    global.nextUnsolved = () => global.pack.stops[0];
+
+    delete require.cache[require.resolve("../global-story.js")];
+    const story = require("../global-story.js");
+    assert.doesNotThrow(() => story.init());
+    assert.equal(story.getCurrentMode(), "halloween");
+    assert.equal(story.getCurrentCulture(), "western");
+    assert.ok(story.adaptedStory);
+    assert.equal(typeof story.adaptedStory.intro, "string");
+  });
 });
 
 test("story selection follows the existing seasonal boundaries with a controlled clock", async (t) => {
@@ -68,29 +88,20 @@ test("story selection follows the existing seasonal boundaries with a controlled
   ];
 
   for (const [month, day, expected] of cases) {
-    await t.test(`${month}/${day}: ${expected}`, (t) => {
-      // Construct local noon before enabling the mock: detectMode reads local
-      // calendar fields, so the fixture works in every runner timezone.
-      t.mock.timers.enable({
-        apis: ["Date"],
-        now: new Date(2026, month - 1, day, 12).getTime()
+    await t.test(`${month}/${day}: ${expected}`, () => {
+      // Local noon keeps date-window fixtures independent of runner timezone.
+      // Seed the out-of-season fallback without changing production behavior.
+      withStoryClock(new Date(2026, month - 1, day, 12), 0, () => {
+        assert.equal(story.detectMode(), expected);
       });
-      // Outside the seasonal windows the existing behavior chooses a random
-      // mode. Select its first entry deterministically instead of changing
-      // the production default to satisfy a test.
-      t.mock.method(Math, "random", () => 0);
-      assert.equal(story.detectMode(), expected);
     });
   }
 });
 
-test("out-of-season story selection retains the existing random variety", (t) => {
-  t.mock.timers.enable({
-    apis: ["Date"],
-    now: new Date(2026, 3, 1, 12).getTime()
+test("out-of-season story selection retains the existing random variety", () => {
+  withStoryClock(new Date(2026, 3, 1, 12), 0.999, () => {
+    assert.equal(require("../global-story.js").detectMode(), "mid_autumn");
   });
-  t.mock.method(Math, "random", () => 0.999);
-  assert.equal(require("../global-story.js").detectMode(), "mid_autumn");
 });
 
 test("service worker precaches the new player modules and available translation files", () => {
