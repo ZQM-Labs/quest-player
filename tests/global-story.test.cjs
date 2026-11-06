@@ -2,6 +2,7 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
+const { spawnSync } = require("node:child_process");
 
 const root = path.resolve(__dirname, "..");
 
@@ -52,20 +53,49 @@ test("GlobalStory initializes and applies a valid mode and culture", () => {
       getElementById(id) { return screens[id] || null; },
       createElement() { return element(); }
     };
-    global.navigator = { language: "en-US" };
     global.pack = { stops: [{ id: 1 }], story_content: {}, environmental_storytelling: {} };
     global.state = { solved: [] };
     global.nextUnsolved = () => global.pack.stops[0];
 
-    delete require.cache[require.resolve("../global-story.js")];
-    const story = require("../global-story.js");
-    assert.doesNotThrow(() => story.init());
-    assert.equal(story.getCurrentMode(), "halloween");
-    assert.equal(story.getCurrentCulture(), "western");
-    assert.ok(story.adaptedStory);
-    assert.equal(typeof story.adaptedStory.intro, "string");
+    // Recent Node versions expose navigator through a getter. Plain assignment
+    // silently leaves the host locale in place; replace and restore its descriptor.
+    const navigatorDescriptor = Object.getOwnPropertyDescriptor(global, "navigator");
+    Object.defineProperty(global, "navigator", {
+      configurable: true, writable: true, value: { language: "en-US" }
+    });
+    try {
+      delete require.cache[require.resolve("../global-story.js")];
+      const story = require("../global-story.js");
+      assert.doesNotThrow(() => story.init());
+      assert.equal(story.getCurrentMode(), "halloween");
+      assert.equal(story.getCurrentCulture(), "western");
+      assert.ok(story.adaptedStory);
+      assert.equal(typeof story.adaptedStory.intro, "string");
+    } finally {
+      if (navigatorDescriptor) Object.defineProperty(global, "navigator", navigatorDescriptor);
+      else delete global.navigator;
+    }
   });
 });
+
+if (!process.env.ZQM_STORY_LOCALE_CHILD) {
+  test("story initialization controls a read-only non-English navigator", () => {
+    const env = { ...process.env, ZQM_STORY_LOCALE_CHILD: "1" };
+    delete env.NODE_TEST_CONTEXT;
+    const source = [
+      'const assert = require("node:assert/strict");',
+      'const navigatorGetter = () => ({ language: "hi-IN" });',
+      'Object.defineProperty(global, "navigator", { configurable: true, get: navigatorGetter });',
+      'require(process.argv[1]);',
+      'process.on("exit", () => assert.equal(Object.getOwnPropertyDescriptor(global, "navigator").get, navigatorGetter));'
+    ].join(" ");
+    const child = spawnSync(process.execPath, ["-e", source, __filename], {
+      env, encoding: "utf8", timeout: 30000
+    });
+    assert.equal(child.status, 0, child.stdout + child.stderr);
+    assert.match(child.stdout, /GlobalStory initializes/);
+  });
+}
 
 test("story selection follows the existing seasonal boundaries with a controlled clock", async (t) => {
   const story = require("../global-story.js");
