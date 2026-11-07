@@ -1022,6 +1022,21 @@ const deepKit = (qs.get("kit") || "").trim();
 // start posters used ?code= for access - honor it only when no ?stop= is
 // present, so a scanned stop sign can never poison the access field. (P2)
 const accessCode = (qs.get("ac") || "").trim() || (!qs.get("stop") ? deepSignCode : "");
+// Both QR bearer values are captured in memory above. Remove them from the
+// browser's visible URL and history entry before any gameplay or sharing.
+// This does not prevent the initial navigation URL reaching the player host;
+// that requires server-side log hygiene and referrer-policy safeguards.
+if (qs.has("ac") || qs.has("code")) {
+  try {
+    const safeUrl = new URL(location.href);
+    safeUrl.searchParams.delete("ac");
+    safeUrl.searchParams.delete("code");
+    history.replaceState(history.state, "", safeUrl.pathname + safeUrl.search + safeUrl.hash);
+  } catch {
+    // The player must remain usable on restrictive embedded browsers. The
+    // Referrer-Policy still limits disclosure if history cannot be replaced.
+  }
+}
 if (deepKit && !state.kitId) state.kitId = deepKit;
 if (accessCode) {
   const ac = $("access-code");
@@ -1514,6 +1529,7 @@ $("btn-restart").addEventListener("click", () => {
   const keep = new URLSearchParams(location.search);
   keep.delete("stop");   // clear the QR deep-link so the new run starts clean
   keep.delete("code");   // and the sign code, so it is not pre-filled next run (m3)
+  keep.delete("ac");     // never carry bearer access codes through restart if history replacement failed
   const q = keep.toString();
   localStorage.removeItem("lantern-state");
   location.href = location.pathname + (q ? "?" + q : "");
