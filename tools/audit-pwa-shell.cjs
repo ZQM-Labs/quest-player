@@ -23,8 +23,18 @@ const kindFor = (relative) => {
 function readShell(source) {
   const shell = source.match(/\bconst\s+SHELL\s*=\s*\[([\s\S]*?)\];/);
   if (!shell) throw new Error("Service worker shell array not found");
-  const entries = [...shell[1].matchAll(/"(\.\/[^"]*)"/g)].map(m => m[1]);
-  if (!entries.length) throw new Error("No relative shell entries found");
+  // Parse every token, not only strings matching a permissive regex. A silent
+  // omission would undercount the service worker's actual app-shell inventory.
+  let entries;
+  try {
+    entries = JSON.parse("[" + shell[1].replace(/,\\s*$/, "") + "]");
+  } catch {
+    throw new Error("Invalid or unsupported service worker shell entry");
+  }
+  if (!Array.isArray(entries) || !entries.length ||
+      entries.some(entry => typeof entry !== "string" || !entry.startsWith("./"))) {
+    throw new Error("Invalid or nonlocal shell entry");
+  }
   if (new Set(entries).size !== entries.length) throw new Error("Repeated shell route");
   return entries;
 }
@@ -47,6 +57,15 @@ function report(rootDir = root) {
     const absolute = path.resolve(rootDir, relative);
     if (!absolute.startsWith(path.resolve(rootDir) + path.sep)) {
       throw new Error("Shell path escaped app root");
+    }
+    // Do not follow symlinks, including ancestors: the inventory must measure
+    // only physical assets within the checked-out application directory.
+    let current = path.resolve(rootDir);
+    for (const part of relative.split("/")) {
+      current = path.join(current, part);
+      if (fs.lstatSync(current).isSymbolicLink()) {
+        throw new Error("Symlinked shell path is not allowed: " + entry);
+      }
     }
     if (!fs.statSync(absolute).isFile()) {
       throw new Error("Shell path not a regular file: " + entry);
