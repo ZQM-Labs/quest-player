@@ -44,6 +44,49 @@ test("rejects local traversal in a synthetic shell fixture", () => {
   }
 });
 
+test("rejects shell expressions and unsupported string forms instead of silently omitting them", () => {
+  for (const shell of [
+    'const SHELL = ["./index.html", dynamicAsset];',
+    "const SHELL = ['./index.html'];",
+    'const SHELL = ["./index.html", 12];',
+    'const SHELL = ["./index.html", "https://example.com/app.js"];',
+  ]) {
+    assert.throws(() => readShell(shell), /Invalid or unsupported|Invalid or nonlocal/);
+  }
+  assert.deepEqual(readShell('const SHELL = ["./", "./index.html",];'),
+    ["./", "./index.html"]);
+});
+
+test("rejects symlinked app-shell asset and parent directories", (t) => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "zqm-shell-link-"));
+  try {
+    fs.writeFileSync(path.join(dir, "sw.js"),
+      'const CACHE = "lantern-v1"; const SHELL = ["./asset.js"];');
+    fs.writeFileSync(path.join(dir, "manifest.webmanifest"),
+      '{"start_url":"./","display":"standalone"}');
+    fs.writeFileSync(path.join(dir, "real.js"), "console.log(1);");
+    try {
+      fs.symlinkSync("real.js", path.join(dir, "asset.js"));
+    } catch (error) {
+      if (["EPERM", "ENOTSUP", "EACCES"].includes(error.code)) {
+        t.skip("symlink creation unavailable");
+        return;
+      }
+      throw error;
+    }
+    assert.throws(() => report(dir), /Symlinked shell path/);
+    fs.unlinkSync(path.join(dir, "asset.js"));
+    fs.mkdirSync(path.join(dir, "real"));
+    fs.writeFileSync(path.join(dir, "real", "asset.js"), "console.log(2);");
+    fs.symlinkSync("real", path.join(dir, "alias"), "dir");
+    fs.writeFileSync(path.join(dir, "sw.js"),
+      'const CACHE = "lantern-v1"; const SHELL = ["./alias/asset.js"];');
+    assert.throws(() => report(dir), /Symlinked shell path/);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("no synthetic data is presented as a user, sales or browser measurement", () => {
   const text = JSON.stringify(report());
   assert.match(text, /not_network_or_cache-install/);
