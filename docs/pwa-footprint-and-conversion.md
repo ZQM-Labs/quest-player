@@ -54,7 +54,7 @@ confidence/repeatability. Do not compare to a native app unless
 that app's relevant installed/download size and comparable device
 flow have actually been measured.
 
-The [Organizer Toolkit offline outcomes calculator](https://github.com/ZQM-Labs/organizer-toolkit/blob/main/event-kit/OUTCOMES.md)
+The [Organizer Toolkit](https://github.com/ZQM-Labs/organizer-toolkit) offline outcomes calculator (currently under review as organizer-toolkit PR #36)
 can summarize manually entered aggregate counts without installing
 tracking in the PWA; it does not verify any sale or finished event.
 
