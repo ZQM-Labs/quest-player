@@ -27,7 +27,7 @@ function readShell(source) {
   // omission would undercount the service worker's actual app-shell inventory.
   let entries;
   try {
-    entries = JSON.parse("[" + shell[1].replace(/,\\s*$/, "") + "]");
+    entries = JSON.parse("[" + shell[1].replace(/,\s*$/, "") + "]");
   } catch {
     throw new Error("Invalid or unsupported service worker shell entry");
   }
