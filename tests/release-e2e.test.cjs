@@ -71,6 +71,72 @@ test("20 consecutive launches render the start screen without uncaught JavaScrip
   assert.deepEqual(errors, [], "startup must not emit uncaught page errors");
 });
 
+test("start-poster QR hides the access code from history but keeps the captured join value", async () => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  const start = baseUrl + "/?kit=DEMO&ac=WISP-2026-DEMO&utm_source=printed-poster";
+  const errors = [];
+  page.on("pageerror", e => errors.push(e.message));
+  await page.goto(start, { waitUntil: "domcontentloaded" });
+  await page.locator("#screen-start.active").waitFor({ state: "visible" });
+  await page.waitForFunction(() => !new URL(location.href).searchParams.has("ac"));
+  const current = new URL(page.url());
+  assert.equal(current.searchParams.get("kit"), "DEMO");
+  assert.equal(current.searchParams.get("utm_source"), "printed-poster");
+  assert.equal(current.searchParams.has("ac"), false);
+  assert.equal(current.searchParams.has("code"), false);
+  assert.equal(await page.locator("#access-code").inputValue(), "WISP-2026-DEMO");
+  assert.equal(await page.locator('meta[name="referrer"]').getAttribute("content"), "no-referrer");
+  await page.getByRole("button", { name: "Start the hunt" }).click();
+  await page.locator("#screen-scare.active").waitFor({ state: "visible" });
+  assert.deepEqual(errors, []);
+  await context.close();
+});
+
+test("stop-sign QR keeps stop/deep-link behavior while removing the sign code from history", async () => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  const errors = [];
+  page.on("pageerror", e => errors.push(e.message));
+  await page.goto(
+    baseUrl + "/?kit=DEMO&stop=1&code=LANTERN-1&demo=1", { waitUntil: "domcontentloaded" }
+  );
+  await page.locator("#screen-start.active").waitFor({ state: "visible" });
+  await page.waitForFunction(() => !new URL(location.href).searchParams.has("code"));
+  const current = new URL(page.url());
+  assert.equal(current.searchParams.get("kit"), "DEMO");
+  assert.equal(current.searchParams.get("stop"), "1");
+  assert.equal(current.searchParams.get("demo"), "1");
+  assert.equal(current.searchParams.has("code"), false);
+  assert.equal(await page.locator("#access-code").inputValue(), "");
+  await page.getByRole("button", { name: "Start the hunt" }).click();
+  await page.locator("#screen-scare.active").waitFor({ state: "visible" });
+  await page.locator('[data-pick="cozy"]').click();
+  await page.locator("#screen-puzzle.active").waitFor({ state: "visible" });
+  assert.equal(await page.locator("#unlock-code").inputValue(), "LANTERN-1");
+  assert.deepEqual(errors, []);
+  await context.close();
+});
+
+test("QR history sanitizer removes every ac/code occurrence but preserves public route fields", async () => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto(
+    baseUrl + "/?kit=DEMO&demo=1&ac=FIRST&ac=SECOND&code=FIRST-SIGN&code=SECOND-SIGN&lang=es#main-content",
+    { waitUntil: "domcontentloaded" }
+  );
+  await page.locator("#screen-start.active").waitFor({ state: "visible" });
+  await page.waitForFunction(() => !new URL(location.href).searchParams.has("ac"));
+  const current = new URL(page.url());
+  assert.equal(current.searchParams.has("ac"), false);
+  assert.equal(current.searchParams.has("code"), false);
+  assert.equal(current.searchParams.get("kit"), "DEMO");
+  assert.equal(current.searchParams.get("demo"), "1");
+  assert.equal(current.searchParams.get("lang"), "es");
+  assert.equal(current.hash, "#main-content");
+  await context.close();
+});
+
 test("malformed packs return validation errors rather than throwing", async () => {
   const context = await browser.newContext();
   const page = await context.newPage();
