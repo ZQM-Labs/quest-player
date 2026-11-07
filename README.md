@@ -45,6 +45,10 @@ languages, on whatever phone a Lantern Keeper has in their pocket.
 
 The **ZQM Labs quest-player Progressive Web App (PWA)** runs location-based scavenger hunts in a mobile browser using vanilla HTML, CSS, and JavaScript. It presents versioned quest packs, checkpoint puzzles, hint ladders, and story/scare-level variants, with offline-first behavior as a design goal. The runtime must be validated on supported devices and clean hosts; repository docs and static checks alone do not prove every offline or GPS/QR flow works in the field.
 
+## Measured PWA footprint (source-only)
+
+The [local shell audit](docs/pwa-footprint-and-conversion.md) measures the **actual repository files** listed in the offline service-worker shell and reports bytes grouped by type. Run `npm run audit:pwa`. This is not a production network transfer test, a successful offline installation, or proof of visitor conversion or revenue; the Wisp player and deployment source pins remain unchanged.
+
 ## Repository role and status
 
 **Status:** Active, public. Canonical game player source for ZQM Labs location games; deployment-critical.
