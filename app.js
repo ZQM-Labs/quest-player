@@ -1529,6 +1529,7 @@ $("btn-restart").addEventListener("click", () => {
   const keep = new URLSearchParams(location.search);
   keep.delete("stop");   // clear the QR deep-link so the new run starts clean
   keep.delete("code");   // and the sign code, so it is not pre-filled next run (m3)
+  keep.delete("ac");     // never carry bearer access codes through restart if history replacement failed
   const q = keep.toString();
   localStorage.removeItem("lantern-state");
   location.href = location.pathname + (q ? "?" + q : "");
