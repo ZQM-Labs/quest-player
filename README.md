@@ -45,6 +45,10 @@ languages, on whatever phone a Lantern Keeper has in their pocket.
 
 The **ZQM Labs quest-player Progressive Web App (PWA)** runs location-based scavenger hunts in a mobile browser using vanilla HTML, CSS, and JavaScript. It presents versioned quest packs, checkpoint puzzles, hint ladders, and story/scare-level variants, with offline-first behavior as a design goal. The runtime must be validated on supported devices and clean hosts; repository docs and static checks alone do not prove every offline or GPS/QR flow works in the field.
 
+## Measured PWA footprint (source-only)
+
+The [local shell audit](docs/pwa-footprint-and-conversion.md) measures the **actual repository files** listed in the offline service-worker shell and reports bytes grouped by type. Run `npm run audit:pwa`. This is not a production network transfer test, a successful offline installation, or proof of visitor conversion or revenue; the Wisp player and deployment source pins remain unchanged.
+
 ## Repository role and status
 
 **Status:** Active, public. Canonical game player source for ZQM Labs location games; deployment-critical.
@@ -71,7 +75,7 @@ cd quest-player
 ```bash
 python3 -m http.server 8080
 # Demo (embedded Wisp content, no backend): http://localhost:8080/?demo=1
-# Live (needs lantern-backend):             http://localhost:8080/?kit=<kitId>&code=<accessCode>
+# Live start poster (needs authorized backend): http://localhost:8080/?kit=<kitId>&ac=<accessCode>
 ```
 
 ## Usage
@@ -93,6 +97,14 @@ pack that follows the format described under [Content packs](#content-packs).
    assist"). Progress persists in localStorage; with a backend, progress also
    syncs for leaderboards (office tier).
 5. Finale: completion screen, team photo prompt, badge, partner/finale code.
+
+## QR link privacy and source-only validation
+
+Start posters encode `?kit=<id>&ac=<accessCode>`; stop signs encode `?kit=<id>&stop=<1–6>&code=<signCode>`. On player initialization, the source captures the relevant QR values for the existing join/unlock flow, then removes **every** `ac` and `code` query parameter from the visible address and current history entry using `history.replaceState`. Public route fields such as `kit`, `stop` and `demo` are retained; restarts never append the start-code parameter. The start screen may still display the captured code in its access input, and a verified stop code can still prefill its corresponding unlock field.
+
+The standalone player declares a `no-referrer` document meta policy and Pages `_headers` directive. This reduces credential disclosure from **subsequent navigation requests** but does **not** prevent the initial QR URL from reaching the serving host, reverse proxy, HTTP request logs, QR scanner app, screenshot, browser/network history outside the current entry, or authorized API calls. Hosts must treat codes and printed signs as private bearer material, avoid public analytics/logging of URL queries, and use secure deployed hosting. On restrictive browsers, history replacement may fail; the game remains usable but the original URL may persist.
+
+The [Playwright release regression](tests/release-e2e.test.cjs) checks real start-poster and stop-sign query capture, redaction, public query preservation and no JS exceptions. These are **source/browser tests**, not verification of a particular live entitlement, commercial event or production release. The production composite repository pins `PLAYER_SOURCE_SHA`; updating this source alone does **not** publish it.
 
 ## Language support
 
