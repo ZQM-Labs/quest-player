@@ -189,7 +189,7 @@ test("installed player survives five offline reloads and completes ten consecuti
 
   await page.goto(baseUrl + "/tests/fixtures/blank.html", { waitUntil: "domcontentloaded" });
   await page.evaluate(async () => {
-    const oldCache = await caches.open("lantern-v6");
+    const oldCache = await caches.open("lantern-v28");
     await oldCache.put(new Request(location.origin + "/old-version-sentinel"), new Response("old"));
     const unrelated = await caches.open("unrelated-app-cache");
     await unrelated.put(new Request(location.origin + "/sentinel"), new Response("keep me"));
@@ -215,7 +215,9 @@ test("installed player survives five offline reloads and completes ten consecuti
       "./index.html", "./app.js", "./global-story.js", "./i18n.js",
       "./i18n/en.json", "./i18n/es.json", "./i18n/fr.json", "./i18n/de.json", "./i18n/pt.json",
       "./assets/img/logo-primary.webp", "./assets/img/stop-1-pumpkin-cozy.webp",
-      "./assets/img/finale-lantern-parade.webp", "./assets/audio/hoot.ogg"
+      "./assets/img/finale-lantern-parade.webp", "./assets/audio/hoot.ogg",
+      "./vendor/images/marker-icon.svg", "./vendor/images/marker-shadow.svg",
+      "./vendor/images/layers.svg", "./vendor/images/layers-2x.svg"
     ];
     const missing = [];
     for (const path of paths) if (!cache || !(await cache.match(path))) missing.push(path);
@@ -223,7 +225,7 @@ test("installed player survives five offline reloads and completes ten consecuti
   });
   assert.ok(cached.currentCache, "the player service worker must create a versioned lantern cache");
   assert.deepEqual(cached.missing, [], "offline shell, translations, audio, and key art must be precached");
-  assert.ok(!cached.cacheNames.includes("lantern-v6"), "activation must remove the previous player cache");
+  assert.ok(!cached.cacheNames.includes("lantern-v28"), "activation must remove the previous player cache");
   assert.ok(cached.cacheNames.includes("unrelated-app-cache"), "the player must preserve unrelated origin caches");
 
   await context.setOffline(true);
