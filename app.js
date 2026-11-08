@@ -11,6 +11,10 @@ const API_BASE =
 // Self-hosted SVG marker assets. Keep the default Leaflet fallback functional
 // even though the quest normally renders accessible custom divIcon markers.
 if (typeof L !== "undefined" && L.Icon && L.Icon.Default) {
+  // Leaflet 1.9.x prepends its CSS-detected imagePath to iconUrl. Because
+  // these self-hosted URLs are already rooted at the player mount, disable
+  // detection so the resulting URL is not duplicated (vendor/images/...).
+  L.Icon.Default.imagePath = "";
   L.Icon.Default.mergeOptions({
     iconUrl: "vendor/images/marker-icon.svg",
     iconRetinaUrl: "vendor/images/marker-icon.svg",
