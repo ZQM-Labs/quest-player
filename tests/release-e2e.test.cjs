@@ -189,7 +189,7 @@ test("installed player survives five offline reloads and completes ten consecuti
 
   await page.goto(baseUrl + "/tests/fixtures/blank.html", { waitUntil: "domcontentloaded" });
   await page.evaluate(async () => {
-    const oldCache = await caches.open("lantern-v6");
+    const oldCache = await caches.open("lantern-v28");
     await oldCache.put(new Request(location.origin + "/old-version-sentinel"), new Response("old"));
     const unrelated = await caches.open("unrelated-app-cache");
     await unrelated.put(new Request(location.origin + "/sentinel"), new Response("keep me"));
@@ -215,7 +215,9 @@ test("installed player survives five offline reloads and completes ten consecuti
       "./index.html", "./app.js", "./global-story.js", "./i18n.js",
       "./i18n/en.json", "./i18n/es.json", "./i18n/fr.json", "./i18n/de.json", "./i18n/pt.json",
       "./assets/img/logo-primary.webp", "./assets/img/stop-1-pumpkin-cozy.webp",
-      "./assets/img/finale-lantern-parade.webp", "./assets/audio/hoot.ogg"
+      "./assets/img/finale-lantern-parade.webp", "./assets/audio/hoot.ogg",
+      "./vendor/images/marker-icon.svg", "./vendor/images/marker-shadow.svg",
+      "./vendor/images/layers.svg", "./vendor/images/layers-2x.svg"
     ];
     const missing = [];
     for (const path of paths) if (!cache || !(await cache.match(path))) missing.push(path);
@@ -223,7 +225,7 @@ test("installed player survives five offline reloads and completes ten consecuti
   });
   assert.ok(cached.currentCache, "the player service worker must create a versioned lantern cache");
   assert.deepEqual(cached.missing, [], "offline shell, translations, audio, and key art must be precached");
-  assert.ok(!cached.cacheNames.includes("lantern-v6"), "activation must remove the previous player cache");
+  assert.ok(!cached.cacheNames.includes("lantern-v28"), "activation must remove the previous player cache");
   assert.ok(cached.cacheNames.includes("unrelated-app-cache"), "the player must preserve unrelated origin caches");
 
   await context.setOffline(true);
@@ -425,5 +427,57 @@ test("audio-cued stop shows a sound replay control, other stops do not", async (
     if (stop < 5) await page.locator("#screen-map.active").waitFor({ state: "visible", timeout: 5000 });
   }
   assert.deepEqual(errors, [], "sound control must not throw page errors");
+  await context.close();
+});
+
+test("default Leaflet marker and layer-control icons render after a cold offline install", async () => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  page.setDefaultTimeout(10000);
+  const errors = [];
+  page.on("pageerror", error => errors.push(error.message));
+  await page.goto(baseUrl + "/tests/fixtures/blank.html", { waitUntil: "domcontentloaded" });
+  await page.evaluate(async () => {
+    await navigator.serviceWorker.register("/sw.js", { scope: "/" });
+    await navigator.serviceWorker.ready;
+  });
+  await page.goto(baseUrl + "/?demo=1", { waitUntil: "domcontentloaded" });
+  await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller), null, { timeout: 15000 });
+
+  // These are Leaflet's optional default marker and layers UI, not the
+  // current quest's custom divIcon. Exercise otherwise latent CSS URLs.
+  await context.setOffline(true);
+  await page.reload({ waitUntil: "domcontentloaded" });
+  const assets = await page.evaluate(async () => {
+    const mount = document.createElement("div");
+    mount.style.cssText = "width:240px;height:180px;position:relative";
+    document.body.appendChild(mount);
+    const map = L.map(mount, { zoomControl: false }).setView([0, 0], 3);
+    const marker = L.marker([0, 0]).addTo(map);
+    L.control.layers({}, {}).addTo(map);
+    const img = marker.getElement();
+    const toggle = mount.querySelector(".leaflet-control-layers-toggle");
+    if (!img || !toggle) throw new Error("Leaflet marker/layers controls missing");
+    await new Promise((resolve, reject) => {
+      if (img.complete) return img.naturalWidth > 0 ? resolve() : reject(new Error("marker icon missing"));
+      img.addEventListener("load", resolve, { once: true });
+      img.addEventListener("error", () => reject(new Error("marker icon failed")), { once: true });
+    });
+    const response = await fetch("vendor/images/layers.svg");
+    const result = {
+      markerUrl: new URL(img.src).pathname,
+      markerLoaded: img.naturalWidth > 0,
+      layersBackground: getComputedStyle(toggle).backgroundImage,
+      layersHttpStatus: response.status,
+    };
+    map.remove();
+    mount.remove();
+    return result;
+  });
+  assert.match(assets.markerUrl, /\/vendor\/images\/marker-icon\.svg$/);
+  assert.equal(assets.markerLoaded, true);
+  assert.match(assets.layersBackground, /layers\.svg/);
+  assert.equal(assets.layersHttpStatus, 200);
+  assert.deepEqual(errors, [], "offline Leaflet controls must not emit uncaught errors");
   await context.close();
 });
