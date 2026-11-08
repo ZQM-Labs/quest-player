@@ -8,6 +8,16 @@ const API_BASE =
   window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
   ? "http://localhost:8090" : "https://api.zqmlabs.com";
 
+// Self-hosted SVG marker assets. Keep the default Leaflet fallback functional
+// even though the quest normally renders accessible custom divIcon markers.
+if (typeof L !== "undefined" && L.Icon && L.Icon.Default) {
+  L.Icon.Default.mergeOptions({
+    iconUrl: "vendor/images/marker-icon.svg",
+    iconRetinaUrl: "vendor/images/marker-icon.svg",
+    shadowUrl: "vendor/images/marker-shadow.svg"
+  });
+}
+
 const DEMO_PACK = {
   "title": "Wisp's Lost Lanterns",
   "kit": "DEMO",
