@@ -9,7 +9,7 @@
     "audit:pwa": "node tools/audit-pwa-shell.cjs"
   },
   "devDependencies": {
-    "playwright": "^1.64.1"
+    "playwright": "^1.65.0"
   },
   "engines": {
     "node": ">=18"
