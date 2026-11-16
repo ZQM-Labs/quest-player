@@ -306,12 +306,16 @@ const I18n = {
         });
       }
 
-      // Translate hints
+      // Preserve both legacy flat hints and per-scare-level hint ladders.
+      // Level-specific hints must not inherit a different level's translation.
       if (stop.hints) {
-        translated.hints = stop.hints.map((hint, i) => {
-          const hintKey = `hint_${stop.id}_${i + 1}`;
+        const translateHints = (hints, level) => hints.map((hint, i) => {
+          const hintKey = level ? `hint_${stop.id}_${level}_${i + 1}` : `hint_${stop.id}_${i + 1}`;
           return this.translations[lang]?.[hintKey] || hint;
         });
+        translated.hints = Array.isArray(stop.hints) ? translateHints(stop.hints) :
+          Object.fromEntries(Object.entries(stop.hints).map(([level, hints]) =>
+            [level, translateHints(hints, level)]));
       }
 
       // Translate fallback puzzle
