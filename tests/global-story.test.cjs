@@ -217,3 +217,18 @@ test("service worker precaches every artwork path referenced by the player and o
   }
   assert.match(sw, /k\.startsWith\("lantern-"\)/);
 });
+
+
+test("gameplay inputs have programmatic labels and reduced-motion styling is supported", () => {
+  const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
+  const css = fs.readFileSync(path.join(root, "styles.css"), "utf8");
+  for (const [id, label] of [["puzzle-answer", "Your answer"], ["unlock-code", "Code from the QR sign"]]) {
+    assert.match(html, new RegExp('for="' + id + '"'));
+    assert.match(html, new RegExp('id="' + id + '"'));
+    assert.ok(html.indexOf('for="' + id + '"') < html.indexOf('id="' + id + '"'), label + " label should precede its input");
+  }
+  // Main names the visually-hidden helper `.sr-only` (the PR's `.visually-hidden`
+  // is the same pattern under the project's existing name).
+  assert.match(css, /\.sr-only\s*\{/);
+  assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
+});
