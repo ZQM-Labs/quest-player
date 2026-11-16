@@ -21,7 +21,7 @@ test("all local Leaflet CSS URL assets resolve to vendored files", () => {
 });
 
 test("matching local icon assets are part of the service-worker offline shell", () => {
-  assert.match(worker, /const CACHE = "lantern-v29"/);
+  assert.match(worker, /const CACHE = "lantern-v30"/);
   for (const filename of ["marker-icon.svg", "marker-shadow.svg", "layers.svg", "layers-2x.svg"]) {
     const asset = "./vendor/images/" + filename;
     assert.ok(worker.includes('"' + asset + '"'), "Missing precache asset: " + asset);

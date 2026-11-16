@@ -53,6 +53,13 @@ The [local shell audit](docs/pwa-footprint-and-conversion.md) measures the **act
 
 **Status:** Active, public. Canonical game player source for ZQM Labs location games; deployment-critical.
 
+**Commercial availability (November 16, 2026):** the free Wisp demo is available;
+paid kit checkout is unavailable. Its finale directs organizers to ZQM Labs
+to coordinate future dates, venue, delivery and support through
+`zqmcomputing@gmail.com` before announcing an event. Completing the demo does
+not reserve an event or establish paid-kit fulfillment. Publishing this source
+requires the reviewed composite publisher pin and release gates below.
+
 **What this repository is:** The player web app (PWA) for ZQM Labs location games: vanilla HTML/CSS/JS with no build step, Leaflet maps, GPS geofence and QR/code unlocks, a four-level story/scare Dial, 3-hint ladders per puzzle, offline play via a service worker, and progress persistence. It plays the six-stop Wisp's Lost Lanterns format and consumes JSON content packs written to the quest-authoring spec.
 
 **What it contributes:** Every public game runs through this player. It is the runtime that quest-packs editions are validated against, and its progress sync feeds the quest-analytics backend leaderboards.
