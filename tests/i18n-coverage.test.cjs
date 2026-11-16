@@ -20,6 +20,23 @@ const NEW_KEYS = [
   "copied_button", "close_button",
 ];
 
+test("every demo finale discloses paused paid kits and the organizer coordination address", () => {
+  const paused = {
+    en: /currently unavailable/i,
+    es: /no están disponibles actualmente/i,
+    fr: /actuellement indisponibles/i,
+    de: /derzeit nicht verfügbar/i,
+    it: /non sono attualmente disponibili/i,
+    pt: /atualmente indisponíveis/i,
+    ru: /сейчас недоступны/i,
+  };
+  for (const lang of LANGS) {
+    const note = load(lang).finale_demo_note;
+    assert.match(note, paused[lang], lang + " must not imply paid kits are available");
+    assert.ok(note.includes("zqmcomputing@gmail.com"), lang + " must identify the coordination address");
+  }
+});
+
 test("all locales carry identical key sets including the wired-chrome keys", () => {
   const en = load("en");
   for (const k of NEW_KEYS) assert.ok(en[k], "en missing " + k);

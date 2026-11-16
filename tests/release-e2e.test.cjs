@@ -189,7 +189,7 @@ test("installed player survives five offline reloads and completes ten consecuti
 
   await page.goto(baseUrl + "/tests/fixtures/blank.html", { waitUntil: "domcontentloaded" });
   await page.evaluate(async () => {
-    const oldCache = await caches.open("lantern-v28");
+    const oldCache = await caches.open("lantern-v29");
     await oldCache.put(new Request(location.origin + "/old-version-sentinel"), new Response("old"));
     const unrelated = await caches.open("unrelated-app-cache");
     await unrelated.put(new Request(location.origin + "/sentinel"), new Response("keep me"));
@@ -225,7 +225,7 @@ test("installed player survives five offline reloads and completes ten consecuti
   });
   assert.ok(cached.currentCache, "the player service worker must create a versioned lantern cache");
   assert.deepEqual(cached.missing, [], "offline shell, translations, audio, and key art must be precached");
-  assert.ok(!cached.cacheNames.includes("lantern-v28"), "activation must remove the previous player cache");
+  assert.ok(!cached.cacheNames.includes("lantern-v29"), "activation must remove the previous player cache");
   assert.ok(cached.cacheNames.includes("unrelated-app-cache"), "the player must preserve unrelated origin caches");
 
   await context.setOffline(true);
@@ -276,6 +276,20 @@ test("installed player survives five offline reloads and completes ten consecuti
   await page.waitForFunction(() => { const img = document.querySelector("#screen-finale img.story-art"); return img && img.complete && img.naturalWidth > 0; });
   const finaleWidth = await page.locator("#screen-finale img.story-art").evaluate(img => img.naturalWidth);
   assert.ok(finaleWidth > 0, "finale artwork must load offline");
+
+  // A completed free demo is not a purchase or a confirmed event. Exercise
+  // cached translations at the actual finale, including Italian and Russian.
+  for (const lang of ["en", "es", "fr", "de", "it", "pt", "ru"]) {
+    const copy = JSON.parse(fs.readFileSync(path.join(root, "i18n", lang + ".json"), "utf8"));
+    await page.locator('#lang-switcher [data-lang="' + lang + '"]').click();
+    await page.waitForFunction(expected => document.querySelector("#finale-demo-note").textContent.includes(expected), copy.finale_demo_note);
+    assert.equal(await page.locator("#finale-demo-note").isVisible(), true);
+    assert.equal(await page.locator("#finale-demo-cta a").getAttribute("href"), "https://zqmlabs.com/contact/");
+    assert.equal(await page.locator("#finale-demo-cta span").innerText(), copy.demo_cta);
+    assert.equal(await page.locator("#finale-claim").isVisible(), false, "demo must not promise a physical badge or treat");
+  }
+  await page.locator('#lang-switcher [data-lang="en"]').click();
+  await page.waitForFunction(() => localStorage.getItem("lantern-lang") === "en");
 
   // Repeat the complete quest ten times in the same offline Chromium session.
   for (let run = 2; run <= 10; run++) {
