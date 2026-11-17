@@ -15,8 +15,10 @@ assert.match(
 assert.match(player, /state\.hintsUsed >= HINT_BUDGET/, "the global hint cap must be enforced");
 assert.ok(player.includes('for (const tier of ["spooky", "afterdark", "overdrive"])'), "present non-cozy scare levels must be validated for every stop (cozy is the required base tier, checked separately)");
 for (const tier of ["spooky", "afterdark", "overdrive"]) {
-  const variants = player.split(tier + ": { q:").length - 1;
-  assert.ok(variants >= 6, tier + " must define a puzzle variant for all six stops");
+  // The embedded demo has all three optional tiers at every stop. Accept
+  // both compact JavaScript keys and the JSON-style keys used by app.js.
+  const variants = (player.match(new RegExp(`(?:^|[,{])\\s*"?${tier}"?\\s*:\\s*\\{\\s*"?q"?\\s*:`, "g")) || []).length;
+  assert.ok(variants >= 6, tier + " must define a demo puzzle variant for all six stops");
 }
 assert.match(worker, /const CACHE = "lantern-v\d+";/, "the app-shell cache must carry a versioned lantern-v<N> key so a release invalidates the previous cache");
 
