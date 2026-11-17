@@ -20,6 +20,23 @@ const NEW_KEYS = [
   "copied_button", "close_button",
 ];
 
+test("every demo finale discloses paused paid kits and the organizer coordination address", () => {
+  const paused = {
+    en: /currently unavailable/i,
+    es: /no están disponibles actualmente/i,
+    fr: /actuellement indisponibles/i,
+    de: /derzeit nicht verfügbar/i,
+    it: /non sono attualmente disponibili/i,
+    pt: /atualmente indisponíveis/i,
+    ru: /сейчас недоступны/i,
+  };
+  for (const lang of LANGS) {
+    const note = load(lang).finale_demo_note;
+    assert.match(note, paused[lang], lang + " must not imply paid kits are available");
+    assert.ok(note.includes("zqmcomputing@gmail.com"), lang + " must identify the coordination address");
+  }
+});
+
 test("all locales carry identical key sets including the wired-chrome keys", () => {
   const en = load("en");
   for (const k of NEW_KEYS) assert.ok(en[k], "en missing " + k);
@@ -42,4 +59,48 @@ test("dynamic chrome strings route through the i18n helper", () => {
   assert.ok(app.includes('T("pause_button"'), "app.js pause label not localized");
   assert.ok(app.includes('T("resume_button"'), "app.js resume label not localized");
   assert.ok(app.includes('T("team_name_too_long"'), "app.js team-name alert not localized");
+});
+
+test("language changes preserve every demo hint ladder and use only matching scare-level translations", () => {
+  const i18n = require("../i18n.js");
+  const current = i18n.current, translations = i18n.translations;
+  const pack = JSON.parse(fs.readFileSync(path.join(root, "wisp-demo.json"), "utf8"));
+  const original = JSON.stringify(pack);
+  try {
+    i18n.translations = {};
+    for (const lang of LANGS) {
+      i18n.current = lang;
+      i18n.translations[lang] = { hint_1_cozy_1: "Cozy nudge", hint_1_spooky_1: "Spooky nudge", hint_1_1: "Legacy nudge" };
+      const translated = i18n.translateGameContent(pack);
+      assert.equal(translated.stops[0].hints.cozy[0], "Cozy nudge");
+      assert.equal(translated.stops[0].hints.spooky[0], "Spooky nudge");
+      for (let stop = 0; stop < pack.stops.length; stop++) {
+        for (const level of ["cozy", "spooky", "afterdark", "overdrive"]) {
+          const expected = pack.stops[stop].hints[level].slice();
+          if (stop === 0 && level === "cozy") expected[0] = "Cozy nudge";
+          if (stop === 0 && level === "spooky") expected[0] = "Spooky nudge";
+          assert.deepEqual(translated.stops[stop].hints[level], expected, lang + ": stop " + (stop + 1) + " " + level);
+        }
+      }
+      assert.equal(JSON.stringify(pack), original, "translation must not mutate the source pack");
+    }
+  } finally {
+    i18n.current = current;
+    i18n.translations = translations;
+  }
+});
+
+test("legacy flat hints retain their translation keys without mutating source content", () => {
+  const i18n = require("../i18n.js");
+  const current = i18n.current, translations = i18n.translations;
+  const pack = { stops: [{ id: 1, name: "First stop", hints: ["one", "two", "three"] }] };
+  try {
+    i18n.current = "es";
+    i18n.translations = { es: { hint_1_1: "uno", hint_1_cozy_2: "wrong level" } };
+    assert.deepEqual(i18n.translateGameContent(pack).stops[0].hints, ["uno", "two", "three"]);
+    assert.deepEqual(pack.stops[0].hints, ["one", "two", "three"]);
+  } finally {
+    i18n.current = current;
+    i18n.translations = translations;
+  }
 });
