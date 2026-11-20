@@ -26,6 +26,7 @@ permissions:
 
 jobs:
   detect:
+    timeout-minutes: 30
     runs-on: [self-hosted, Linux, X64, zqm-linux]
     outputs:
       python: ${{ steps.detect.outputs.python }}
@@ -52,6 +53,7 @@ jobs:
           fi
 
   python:
+    timeout-minutes: 30
     needs: detect
     if: needs.detect.outputs.python == 'true'
     runs-on: [self-hosted, Linux, X64, zqm-linux]
@@ -101,6 +103,7 @@ jobs:
           fi
 
   go:
+    timeout-minutes: 30
     needs: detect
     if: needs.detect.outputs.go == 'true'
     runs-on: [self-hosted, Linux, X64, zqm-linux]
@@ -114,6 +117,7 @@ jobs:
         run: go test ./...
 
   docs:
+    timeout-minutes: 30
     runs-on: [self-hosted, Linux, X64, zqm-linux]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
