@@ -12,10 +12,27 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      # v3 of gitleaks-action requires a paid organization license. Keep the
-      # previously working license-free action until licensing is explicitly configured.
-      - name: Run gitleaks
-        uses: gitleaks/gitleaks-action@518e4898c0cd1cc5d9aab6627a2eabd46e81d8da # v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_CONFIG: .gitleaks.toml
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: stable
+      - name: Install Gitleaks
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Per-job GOBIN: runners share one $GOPATH/bin, so a shared install races
+          # and fails with "Device or resource busy" (exit 126).
+          GOBIN="$RUNNER_TEMP/gitleaks-bin"
+          export GOBIN
+          mkdir -p "$GOBIN"
+          go install github.com/zricethezav/gitleaks/v8@v8.25.0
+          echo "$GOBIN" >> "$GITHUB_PATH"
+      - name: Scan full repository history
+        shell: bash
+        run: |
+          if [ -f .gitleaks.toml ]; then
+            gitleaks git --config .gitleaks.toml --redact .
+          else
+            gitleaks git --redact .
+          fi
