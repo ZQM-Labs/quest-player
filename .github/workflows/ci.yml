@@ -102,6 +102,12 @@ jobs:
             exit 1
           fi
 
+      - name: Check player source and hint-budget regressions
+        if: hashFiles('app.js') != ''
+        run: |
+          node --check app.js
+          node scripts/test-player-source.cjs
+
   go:
     timeout-minutes: 30
     needs: detect
